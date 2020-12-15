@@ -38,6 +38,12 @@ for (size_t i{0} ; i < N; i++)
 bfs a{matrix} ; 
 disp_matrix(matrix) ; 
 solve_bfs(a , goal_matrix , matrix) ; 
+// std::vector<int> a  ; 
+// int d = 5 ;  
+// a.push_back(d) ;
+// d = 7 ; 
+// a.push_back(d); 
+// std::cout << a[0] << a[1] << std::endl ;
 return 0 ; 
 
 }
