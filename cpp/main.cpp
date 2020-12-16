@@ -37,6 +37,7 @@ for (size_t i{0} ; i < N; i++)
 }
 bfs a{matrix} ; 
 disp_matrix(matrix) ; 
+disp_matrix(goal_matrix) ; 
 solve_bfs(a , goal_matrix , matrix) ; 
 // std::vector<int> a  ; 
 // int d = 5 ;  
