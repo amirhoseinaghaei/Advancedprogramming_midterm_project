@@ -2,139 +2,75 @@
 #include "project.h"
 #include <cmath>
 #include <vector>
-//#include <windows.h>
 
 #define N 3
 
 typedef struct greaterSmaller Struct;
 
-int k =0 ;  
+int k = 0;
 
-std::vector<bfs> check_stop_bfs ; 
-
-
-void disp_matrix(int matrix[N][N])
-{
-    for (size_t i{0}; i < N; i++)
-    {
-        for (size_t j{0}; j < N; j++)
-        {
-            std::cout << matrix[i][j] << " ";
-        }
-        std::cout << std::endl;
-    }
-}
+std::vector<int> check_stop_bfs;
 
 void solve_bfs(bfs a, int gm[N][N], int m[N][N])
 {
-    
 
     if (is_final(m, gm) == true)
     {
         std::cout << "Here is the matrix" << std::endl;
         disp_matrix(m);
-       k = 1 ; 
+        k++;
     }
     else
     {
         std::cout << "Hello" << std::endl;
+        disp_matrix(a.matrix);
         create_child(a, find_zero_location(a).x, find_zero_location(a).y, gm);
-
-        // disp_matrix(a.childs[0].matrix) ;
     }
-
-    //
-    // for (size_t i{0}; i < a.childs.size(); i++)
-    // {
-    //     create_child(a.childs[i] ,find_zero_location(a.childs[i]).x ,find_zero_location(a.childs[i]).y )
-    // }
-
-    // int var_mat[N][N];
-    // for (size_t i{0}; i < N; i++)
-    // {
-    //     for (size_t j{0}; j < N; j++)
-    //     {
-    //         var_mat[i][j] = m[i][j];
-    //         if (m[i][j] == 0)
-    //         {
-    //             i_C = i;
-    //             j_C = j;
-    //         }
-    //     }
-    // }
-    // // disp_matrix(var_mat);
-    // //std::cout << i_C << j_C << std::endl;
-    // while (true)
-    // {
-    //     if (check_f = true)
-    //     {
-    //         break;
-    //     }
-    //     else
-    //     {
-
-    //     }
-
-    // }
-
-    //     break  ;
-    // }
 }
 
-void create_child(bfs a, int I_C, int J_C, int gm[N][N])
+int create_child(bfs a, int I_C, int J_C, int gm[N][N])
 {
-    
-    // if (is_final(a.childs[i].matrix, gm) == true)
-    // {
-    //     std::cout << "Here is the matrix " << std::endl;
-    // }
 
-    for (int i{0}; i < N; i++)
-    {
-        for (int j{0}; j < N; j++)
+    std::cout << "io" << std::endl;
+
+   
+        for (int i{0}; i < N; i++)
         {
-
-            if (std::abs(i - I_C) + std::abs(j - J_C) == 1)
+            for (int j{0}; j < N; j++)
             {
-            
-                int crowl_mat[N][N];
-                set_equal(crowl_mat, a.matrix);
-                std::swap(crowl_mat[i][j], crowl_mat[I_C][J_C]);
-                if (k != 1 )
-                 {
-                   
-                // // disp_matrix(crowl_mat);
-                if (is_in_list(crowl_mat) == false)
-                 {
-                 bfs *crow = new bfs;
-                 crow = &a;
-                 bfs New{bfs(crow, crowl_mat)};
-                 disp_matrix(New.matrix);
-                 std::cout << "amiramir amir" << std::endl ;
-                 
-                      add_to_list(New) ; 
-                      a.childs.push_back(New);
-                     solve_bfs(New,gm, New.matrix);
-                      crow = nullptr;
-                 }
-                 
-                 }
-                //
-                // {   
-                //     add_to_list(New) ; 
-                //     a.childs.push_back(New);
-                //     // disp_matrix(New.matrix);
-                //      std::cout << "*****************" << std::endl ;
-                //      disp_matrix(gm);
-                //      std::cout << "*****************" << std::endl ;
-                //      //Sleep(1000);
-                //     solve_bfs(New,gm, New.matrix);
-                //     // disp_matrix(a.childs[i].matrix);
-                //    
-                // }
+
+                if (std::abs(i - I_C) + std::abs(j - J_C) == 1)
+                {
+
+                    int crowl_mat[N][N];
+                    set_equal(crowl_mat, a.matrix);
+                    std::swap(crowl_mat[i][j], crowl_mat[I_C][J_C]);
+                    int id = to_id(crowl_mat);
+                    // // disp_matrix(crowl_mat);
+                    std::cout << "****" << check_stop_bfs.size() << "****" << std::endl;
+                    //std::cout << "****" << is_in_list(crowl_mat) << "****" << std::endl;
+                    if (is_in_list(id) == false)
+                    {
+                        // bfs *crow = new bfs;
+                        // crow = &a;
+                        bfs New{bfs(crowl_mat)};
+                        disp_matrix(New.matrix);
+                        std::cout << "amiramir amir" << std::endl;
+                        std::cout << k << std::endl ;
+                        add_to_list(id);
+
+                        //  a.childs.push_back(New);
+                        std::cout << "amiramir amir" << std::endl;
+                        solve_bfs(New, gm, crowl_mat);
+                        // crow = nullptr;
+                    }
+                }
             }
         }
-    }
+    
+
+    return 0;
+    // }
 }
 
 bool is_final(int m[N][N], int gm[N][N])
@@ -156,6 +92,7 @@ bool is_final(int m[N][N], int gm[N][N])
 
 Struct find_zero_location(bfs a)
 {
+    std::cout << "j" << std::endl;
     Struct s;
     for (size_t i{0}; i < N; i++)
     {
@@ -184,28 +121,54 @@ void set_equal(int wanted_mat[N][N], int from_mat[N][N])
     }
 }
 
-
-void add_to_list(bfs inp)
+void add_to_list(int inp)
 {
-    check_stop_bfs.push_back(inp) ; 
+    check_stop_bfs.push_back(inp);
 }
 
-
-
-bool is_in_list(int inp[N][N])
+bool is_in_list(int inp)
 {
+
     for (size_t i{0}; i < check_stop_bfs.size(); i++)
     {
-       if (is_final(check_stop_bfs[i].matrix , inp) == true)
-       {
-           check_stop_bfs.clear();
-           return true ; 
-           break  ;
-       }
-       else
-       {
-           return false ; 
-       }
-       
+        if (inp == check_stop_bfs[i])
+        //  if (inp[1][1]  == 3)
+        {
+            //
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
+}
+
+void disp_matrix(int matrix[N][N])
+{
+    for (size_t i{0}; i < N; i++)
+    {
+        for (size_t j{0}; j < N; j++)
+        {
+            std::cout << matrix[i][j] << " ";
+        }
+        std::cout << std::endl;
+    }
+}
+
+int to_id(int mat[N][N])
+{
+    int id = 0;
+    size_t p = 8;
+    for (size_t i{0}; i < N; i++)
+    {
+        for (size_t j{0}; j < N; j++)
+        {
+
+            id = id + (mat[i][j] * (std::pow(10, p)));
+            p--;
+        }
+    }
+
+    return id;
 }

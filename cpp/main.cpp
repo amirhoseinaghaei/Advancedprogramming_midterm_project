@@ -16,7 +16,7 @@ int main()
 
 int matrix[N][N] ;
 int goal_matrix[N][N] ; 
-int Get ;
+
 std::cout << "Please enter your first puzzle" << std::endl ;  
 for (size_t i{0} ; i < N; i++)
 {
@@ -36,6 +36,7 @@ for (size_t i{0} ; i < N; i++)
     
 }
 bfs a{matrix} ; 
+//check_stop_bfs.push_back(a);
 disp_matrix(matrix) ; 
 disp_matrix(goal_matrix) ; 
 solve_bfs(a , goal_matrix , matrix) ; 
