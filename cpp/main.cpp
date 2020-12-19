@@ -39,7 +39,9 @@ bfs a{matrix} ;
 //check_stop_bfs.push_back(a);
 disp_matrix(matrix) ; 
 disp_matrix(goal_matrix) ; 
+check_stop_bfs.push_back(to_id(matrix));
 solve_bfs(a , goal_matrix , matrix) ; 
+ 
 // std::vector<int> a  ; 
 // int d = 5 ;  
 // a.push_back(d) ;
