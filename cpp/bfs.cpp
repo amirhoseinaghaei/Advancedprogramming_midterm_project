@@ -5,7 +5,7 @@
 
 bfs::bfs(bfs *pr, int mat[3][3])
 {
-    std::cout << "One argument  constructor" << std::endl;
+    // std::cout << "One argument  constructor" << std::endl;
     //  matrix = mat;
     for (int i{0}; i < N; i++)
     {
@@ -20,7 +20,7 @@ bfs::bfs(bfs *pr, int mat[3][3])
 bfs::bfs(int mat[N][N])
 {
 
-    std::cout << "One argument  constructor" << std::endl;
+    // std::cout << "One argument  constructor" << std::endl;
     for (int i{0}; i < N; i++)
     {
         for (size_t j{0}; j < N; j++)
@@ -46,5 +46,5 @@ bfs::bfs(const bfs & cp)
 }
 bfs::bfs()
 {
-    std::cout << "Default constructor" << std::endl;
+    // std::cout << "Default constructor" << std::endl;
 }

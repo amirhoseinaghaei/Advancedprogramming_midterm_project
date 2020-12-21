@@ -20,10 +20,7 @@ int solve_bfs(bfs a, int gm[N][N], int m[N][N])
         k++;
         std::cout << "***************************" << k << "******************************************************" << std::endl;
     }
-    // else if( k == 1 )
-    // {
-    //     return 0 ;
-    // }
+   
     else
     {
         std::cout << "Hello" << std::endl;
@@ -36,73 +33,73 @@ std::vector<int> check_stop_bfs;
 int create_child(bfs a, int I_C, int J_C, int gm[N][N])
 {
 
-    // if (k != 0)
-    // {
-    //     return 0;
-    // }
-    // // std::time_t start = time(0);
-    // // while( difftime(std::time(0), start) <=4);
+    if (k != 0)
+    {
+        return 0;
+    }
+    // std::time_t start = time(0);
+    // while( difftime(std::time(0), start) <=4);
 
   
 
-    // for (int i{0}; i < N; i++)
-    // {
-    //      if (k != 0)
-    //         {
-    //             return 0;
-    //         }
-    //     for (int j{0}; j < N; j++)
-    //     {
-    //         if (k != 0)
-    //         {
-    //             return 0;
-    //         }
-    //         std::cout << check_stop_bfs.size() << std::endl ; 
-    //         if (std::abs(i - I_C) + std::abs(j - J_C) == 1)
-    //         {
+    for (int i{0}; i < N; i++)
+    {
+        //  if (k != 0)
+        //     {
+        //         return 0;
+        //     }
+        for (int j{0}; j < N; j++)
+        {
+            // if (k != 0)
+            // {
+            //     return 0;
+            // }
+            std::cout << check_stop_bfs.size() << std::endl ; 
+            if (std::abs(i - I_C) + std::abs(j - J_C) == 1)
+            {
 
-    //             int crowl_mat[N][N];
-    //             set_equal(crowl_mat, a.matrix);
-    //             std::swap(crowl_mat[i][j], crowl_mat[I_C][J_C]);
-    //             int id = to_id(crowl_mat);
-    //             // // disp_matrix(crowl_mat);
-    //             disp_matrix(crowl_mat);
+                int crowl_mat[N][N];
+                set_equal(crowl_mat, a.matrix);
+                std::swap(crowl_mat[i][j], crowl_mat[I_C][J_C]);
+                int id = to_id(crowl_mat);
+                // // disp_matrix(crowl_mat);
+                disp_matrix(crowl_mat);
                 
                
 
-    //             bool check = false;
-    //             for (size_t i{0}; i < check_stop_bfs.size(); i++)
-    //             {
-    //                 if (id == check_stop_bfs[i])
-    //                 {
+                bool check = false;
+                for (size_t i{0}; i < check_stop_bfs.size(); i++)
+                {
+                    if (id == check_stop_bfs[i])
+                    {
 
-    //                     check = true;
-    //                 }
-    //             }
+                        check = true;
+                    }
+                }
                 
-    //             if (check == false)
-    //             {
+                if (check == false)
+                {
 
-    //                 // bfs *crow = new bfs;
-    //                 // crow = &a;
-    //                 bfs New{bfs(crowl_mat)};
-    //                 // disp_matrix(New.matrix);
+                    // bfs *crow = new bfs;
+                    // crow = &a;
+                    bfs New{bfs(crowl_mat)};
+                    // disp_matrix(New.matrix);
                    
-    //                 std::cout << k << std::endl;
-    //                 check_stop_bfs.push_back(id);
+                    std::cout << k << std::endl;
+                    check_stop_bfs.push_back(id);
 
-    //                 //  a.childs.push_back(New);
+                    //  a.childs.push_back(New);
                     
-    //                 solve_bfs(New, gm, crowl_mat);
-    //                 // crow = nullptr;
-    //             }
-    //         }
-    //     }
+                    solve_bfs(New, gm, crowl_mat);
+                    // crow = nullptr;
+                }
+            }
+        }
         
-    // }
-    // //check_stop_bfs.clear();
-    // return 0;
-    // // }
+    }
+  
+    return 0;
+    }
 }
 
 bool is_final(int m[N][N], int gm[N][N])

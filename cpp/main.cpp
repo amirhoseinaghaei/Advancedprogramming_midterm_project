@@ -14,6 +14,19 @@ int main()
 
 
 
+// std::vector<int> a ;
+// a.push_back(2) ; 
+// a.push_back(3) ; 
+// a.push_back(4) ; 
+// a.push_back(5) ; 
+// a.push_back(6) ; 
+// a.push_back(7) ; 
+//  std::find(a.begin(), a.end(), 6) != a.end() ;
+//  if ( std::find(a.begin(), a.end(), 10) != a.end() )
+//   {
+//       std::cout << "amir"<< std::endl  ;
+//   }
+
 int matrix[N][N] ;
 int goal_matrix[N][N] ; 
 
@@ -40,7 +53,7 @@ bfs a{matrix} ;
 disp_matrix(matrix) ; 
 disp_matrix(goal_matrix) ; 
 check_stop_bfs.push_back(to_id(matrix));
-solve_bfs(a , goal_matrix , matrix) ; 
+solve_bfs(a , to_id(goal_matrix) , matrix) ; 
  
 // std::vector<int> a  ; 
 // int d = 5 ;  
