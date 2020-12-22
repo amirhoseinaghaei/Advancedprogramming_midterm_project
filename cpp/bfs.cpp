@@ -14,8 +14,8 @@ bfs::bfs(bfs *pr, int mat[3][3])
             matrix[i][j] = mat[i][j];
         }
     }
-    parent = new bfs;
-    parent = pr;
+    parent = new bfs; 
+    *parent = *pr;
 }
 bfs::bfs(int mat[N][N])
 {
@@ -28,8 +28,8 @@ bfs::bfs(int mat[N][N])
             matrix[i][j] = mat[i][j];
         }
     }
-    parent = new bfs;
-    parent = this;
+    // parent = new bfs;
+    // parent = this;
 }
 
 bfs::bfs(const bfs & cp)

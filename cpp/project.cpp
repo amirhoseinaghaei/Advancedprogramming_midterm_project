@@ -1,5 +1,6 @@
 #include <iostream>
 #include "project.h"
+#include "bfs.h"
 #include <cmath>
 #include <vector>
 #include <ctime>
@@ -7,10 +8,7 @@
 
 #define N 3
 
-typedef struct greaterSmaller Struct;
-
-int k = 0;
-int kk = 1;
+// typedef struct greaterSmaller Struct;
 
 // int solve_bfs(bfs a, int gm[N][N], int m[N][N])
 // {
@@ -115,16 +113,15 @@ int kk = 1;
 //     return list_child;
 //     // }
 // }
-std::vector<int> check_stop_bfs;
 
-int solve_bfs(bfs &a, int gm, int m[N][N])
+typedef struct greaterSmaller Struct;
+
+int k = 0;
+int solve_dfs(bfs &a, int gm, int m[N][N], int source)
 {
 
-    // std::time_t start = time(0);
-    // while (difftime(std::time(0), start) <= 2) ;
-    std::vector<std::shared_ptr<bfs>> this_row_child = create_child(a, find_zero_location(a).x, find_zero_location(a).y, gm);
+    std::vector<std::shared_ptr<bfs>> this_row_child = create_dfs_child(a, find_zero_location(a).x, find_zero_location(a).y, gm);
 
-    //std::cout << this_row_child.size() << std::endl ;
     if (is_id_final(to_id(m), gm) == true)
     {
 
@@ -134,8 +131,7 @@ int solve_bfs(bfs &a, int gm, int m[N][N])
     }
     else if (this_row_child.size() == 0)
     {
-        //  std::cout << "ooooolll"<< std::endl ;
-        // std::cout << "amir" << std::endl;
+
         return 0;
     }
     else
@@ -148,20 +144,62 @@ int solve_bfs(bfs &a, int gm, int m[N][N])
             {
                 return 0;
             }
-            // disp_matrix(this_row_child[i].matrix);
-            // std::cout << "sssss" << std::endl;
             if (is_id_final(to_id(this_row_child[i]->matrix), gm) == true)
             {
-                // std::cout << "a" << std::endl;
                 k = 1;
-                std::cout << "Here is the matrixxxxxxxxxxxxxxxxxxxxxx" << std::endl;
+                std::cout << "Here is the answer :" << std::endl;
                 disp_matrix(this_row_child[i]->matrix);
+                std::vector<bfs *> answer_list;
+                int h = 0;
+                bfs *disp;
+
+                disp = this_row_child[i].get();
+                //answer_list.push_back((disp));
+                // disp_matrix(disp->matrix);
+                while (true)
+                {
+
+                    std::cout << "********************" << std::endl;
+                    disp_matrix(disp->matrix);
+                    std::cout << "********************" << std::endl;
+                    if (is_id_final(to_id(disp->matrix), source))
+                    {
+                        break;
+                    }
+                    // if (h == 3)
+                    // {
+                    //     break;
+                    // }
+                    answer_list.push_back((disp->parent));
+                    // std::time_t start = time(0);
+                    // while (difftime(std::time(0), start) <= 1);
+
+                    //     std::cout << "aa" << std::endl ;
+                    // disp_matrix(this_row_child[i]->parent->matrix);
+                    // disp_matrix(this_row_child[i]->parent->parent->matrix);
+                    // if (!is_id_final(to_id(this_row_child[i]->parent->parent->matrix), gm))
+                    // {
+                    //     disp_matrix(this_row_child[i]->parent->parent->matrix);
+                    // }
+
+                    disp = disp->parent;
+                    //  h++;
+                }
+                std::reverse(std::begin(answer_list), std::end(answer_list));
+                // std::cout << "hello" << std::endl ;
+                // for (size_t i{0}; i < answer_list.size(); i++)
+                // {
+                //     std::time_t start = time(0);
+                //     while (difftime(std::time(0), start) <= 2)  ;
+                //     disp_matrix(answer_list[i]->matrix);
+                // }
+
                 return 0;
             }
             else
             {
-                // std::cout << "b" << std::endl;
-                solve_bfs(*this_row_child[i], gm, this_row_child[i]->matrix);
+
+                solve_dfs(*this_row_child[i], gm, this_row_child[i]->matrix, source);
             }
             if (i == this_row_child.size() - 1)
             {
@@ -172,12 +210,11 @@ int solve_bfs(bfs &a, int gm, int m[N][N])
     }
 }
 
-std::vector<std::shared_ptr<bfs>> create_child(bfs &a, int I_C, int J_C, int gm)
+std::vector<std::shared_ptr<bfs>> create_dfs_child(bfs &a, int I_C, int J_C, int gm)
 {
 
     std::vector<std::shared_ptr<bfs>> list_child;
-    // std::cout << "c" << std::endl;
-    //   std::cout << "c" << std::endl;
+
     for (int i{0}; i < N; i++)
     {
 
@@ -190,7 +227,6 @@ std::vector<std::shared_ptr<bfs>> create_child(bfs &a, int I_C, int J_C, int gm)
                 int crowl_mat[N][N];
                 set_equal(crowl_mat, a.matrix);
                 std::swap(crowl_mat[i][j], crowl_mat[I_C][J_C]);
-                //  disp_matrix(crowl_mat);
                 int id = to_id(crowl_mat);
                 bool check = false;
                 //  std::cout << check_stop_bfs.size() << std::endl;
@@ -202,30 +238,29 @@ std::vector<std::shared_ptr<bfs>> create_child(bfs &a, int I_C, int J_C, int gm)
                 //         check = true;
                 //     }
                 // }
-                if ( std::find(check_stop_bfs.begin(), check_stop_bfs.end(), id) != check_stop_bfs.end() )
+                if (std::find(check_stop_bfs.begin(), check_stop_bfs.end(), id) != check_stop_bfs.end())
                 {
-                    check = true ; 
+                    check = true;
                 }
                 if (check == false)
                 {
 
-                    // bfs *crow = new bfs;
-                    // crow = &a;
                     check_stop_bfs.push_back(id);
-                    kk += 1;
-                    bfs wq(crowl_mat);
-                    std::shared_ptr<bfs> New(new bfs);
-                    *New = wq;
+
+                    // std::shared_ptr<bfs> b(new bfs);
+                    // *b = a ;
+
+                    std::shared_ptr<bfs> New(new bfs(&a, crowl_mat));
+                    // *New = wq;
                     list_child.push_back(New);
-                    //  a.childs.push_back(New);
+                    a.childs.push_back(New);
                     // crow = nullptr;
                 }
             }
         }
     }
-    //check_stop_bfs.clear();
+
     return list_child;
-    // }
 }
 
 bool is_final(int m[N][N], int gm[N][N])
@@ -350,15 +385,6 @@ int to_id(int matrix[N][N])
     id[8] = matrix[2][2];
     int idd = (std::pow(10, 8)) * id[0] + (std::pow(10, 7)) * id[1] + (std::pow(10, 6)) * id[2] + (std::pow(10, 5)) * id[3] + (std::pow(10, 4)) * id[4] + (std::pow(10, 3)) * id[5] + (std::pow(10, 2)) * id[6] + (std::pow(10, 1)) * id[7] + (std::pow(10, 0)) * id[8];
     return idd;
-}
-
-void disp()
-{
-
-    for (size_t i{0}; i < check_stop_bfs.size(); i++)
-    {
-        std::cout << check_stop_bfs[i] << std::endl;
-    }
 }
 
 bool is_id_final(int a, int b)

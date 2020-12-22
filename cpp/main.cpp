@@ -2,6 +2,8 @@
 #include <memory>
 #include <vector>
 #include "project.cpp"
+// #include "dfs.h"
+// #include "dfs.cpp"
 #include "bfs.h"
 #define N 3
 // #include "project.h"
@@ -53,7 +55,7 @@ bfs a{matrix} ;
 disp_matrix(matrix) ; 
 disp_matrix(goal_matrix) ; 
 check_stop_bfs.push_back(to_id(matrix));
-solve_bfs(a , to_id(goal_matrix) , matrix) ; 
+solve_dfs(a , to_id(goal_matrix) , matrix, to_id(matrix)) ; 
  
 // std::vector<int> a  ; 
 // int d = 5 ;  
