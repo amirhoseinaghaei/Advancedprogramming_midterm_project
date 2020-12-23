@@ -7,114 +7,113 @@
 #include <memory>
 
 #define N 3
-
-// typedef struct greaterSmaller Struct;
-
-// int solve_bfs(bfs a, int gm[N][N], int m[N][N])
-// {
-
-//     std::vector<bfs> this_row_child = create_child(a, find_zero_location(a).x, find_zero_location(a).y, gm);
-//     std::vector<bfs> this_row_child_next;
-//     if (is_final(m, gm) == true)
-//     {
-
-//         std::cout << "Here is the matrix" << std::endl;
-//         disp_matrix(m);
-//     }
-//     else
-//     {
-//         while (true)
-//         {
-//                  this_row_child_next.clear() ;
-//                 // std::time_t start = time(0);
-//           // while( difftime(std::time(0), start) <=4);
-//             for (size_t i{0}; i < this_row_child.size(); i++)
-//             {
-//                   disp_matrix(this_row_child[i].matrix);
-//                 if (is_final(this_row_child[i].matrix, gm) == true)
-//                 {
-
-//                     std::cout << "Here is the matrixxxxxxxxxxxxxxxxxxxxxx" << std::endl;
-//                     disp_matrix(this_row_child[i].matrix);
-//                     return 0;
-//                 }
-//                 else
-//                 {
-//                     std::vector<bfs> this_row_child_next_crowler = create_child(this_row_child[i], find_zero_location(this_row_child[i]).x, find_zero_location(this_row_child[i]).y, gm);
-
-//                     for (size_t i{0}; i < this_row_child_next_crowler.size(); i++)
-//                     {
-//                         this_row_child_next.push_back(this_row_child_next_crowler[i]);
-//                     }
-//                 }
-//              std::cout << "*******************" << std::endl ;
-//              std::cout << this_row_child.size() << std::endl;
-//              std::cout << "*******************" << std::endl ;
-//             }
-//             // if (this_row_child_next.size() == 0)
-//             // {
-//             //     return 0 ;
-//             // }
-//             // std::cout << "hello" << std::endl ;
-
-//             // std::cout << this_row_child_next.size() << "********"<< std::endl ;
-//             this_row_child.clear() ;
-//             this_row_child =  this_row_child_next  ;
-//             //this_row_child_next.clear() ;
-//             // std::cout <<"88888"<< this_row_child.size() <<"8888"<< std::endl;
-
-//         }
-//     }
-// }
-// std::vector<int> check_stop_bfs;
-
-// std::vector<bfs> create_child(bfs a, int I_C, int J_C, int gm[N][N])
-// {
-
-//     std::vector<bfs> list_child;
-//     for (int i{0}; i < N; i++)
-//     {
-
-//         for (int j{0}; j < N; j++)
-//         {
-
-//             if (std::abs(i - I_C) + std::abs(j - J_C) == 1)
-//             {
-
-//                 int crowl_mat[N][N];
-//                 set_equal(crowl_mat, a.matrix);
-//                 std::swap(crowl_mat[i][j], crowl_mat[I_C][J_C]);
-//                 int id = to_id(crowl_mat);
-//                 bool check = false;
-//                 for (size_t i{0}; i < check_stop_bfs.size(); i++)
-//                 {
-//                     if (id == check_stop_bfs[i])
-//                     {
-
-//                         check = true;
-//                     }
-//                 }
-//                 if (check == false)
-//                 {
-
-//                     // bfs *crow = new bfs;
-//                     // crow = &a;
-//                     check_stop_bfs.push_back(id);
-//                     bfs New{bfs(crowl_mat)};
-
-//                     list_child.push_back(New);
-//                     //  a.childs.push_back(New);
-//                     // crow = nullptr;
-//                 }
-//             }
-//         }
-//     }
-//     //check_stop_bfs.clear();
-//     return list_child;
-//     // }
-// }
-
 typedef struct greaterSmaller Struct;
+
+int solve_bfs(bfs & a, int gm[N][N], int m[N][N])
+{
+
+    std::vector<bfs> this_row_child = create_bfs_child(a, find_zero_location(a).x, find_zero_location(a).y, gm);
+    std::vector<bfs> this_row_child_next;
+    if (is_final(m, gm) == true)
+    {
+
+        std::cout << "Here is the matrix" << std::endl;
+        disp_matrix(m);
+    }
+    else
+    {
+        while (true)
+        {
+                 this_row_child_next.clear() ;
+                // std::time_t start = time(0);
+          // while( difftime(std::time(0), start) <=4);
+            for (size_t i{0}; i < this_row_child.size(); i++)
+            {
+               //   disp_matrix(this_row_child[i].matrix);
+                if (is_final(this_row_child[i].matrix, gm) == true)
+                {
+
+                    std::cout << "Here is the matrixxxxxxxxxxxxxxxxxxxxxx" << std::endl;
+                    disp_matrix(this_row_child[i].matrix);
+                    return 0;
+                }
+                else
+                {
+                    std::vector<bfs> this_row_child_next_crowler = create_bfs_child(this_row_child[i], find_zero_location(this_row_child[i]).x, find_zero_location(this_row_child[i]).y, gm);
+
+                    for (size_t i{0}; i < this_row_child_next_crowler.size(); i++)
+                    {
+                        this_row_child_next.push_back(this_row_child_next_crowler[i]);
+                    }
+                }
+            //  std::cout << "*******************" << std::endl ;
+            //  std::cout << this_row_child.size() << std::endl;
+            //  std::cout << "*******************" << std::endl ;
+            }
+            // if (this_row_child_next.size() == 0)
+            // {
+            //     return 0 ;
+            // }
+            // std::cout << "hello" << std::endl ;
+
+            // std::cout << this_row_child_next.size() << "********"<< std::endl ;
+            this_row_child.clear() ;
+            this_row_child =  this_row_child_next  ;
+            //this_row_child_next.clear() ;
+            // std::cout <<"88888"<< this_row_child.size() <<"8888"<< std::endl;
+
+        }
+    }
+}
+std::vector<int> check_stop;
+
+std::vector<bfs> create_bfs_child(bfs &a, int I_C, int J_C, int gm[N][N])
+{
+
+    std::vector<bfs> list_child;
+    for (int i{0}; i < N; i++)
+    {
+
+        for (int j{0}; j < N; j++)
+        {
+
+            if (std::abs(i - I_C) + std::abs(j - J_C) == 1)
+            {
+
+                int crowl_mat[N][N];
+                set_equal(crowl_mat, a.matrix);
+                std::swap(crowl_mat[i][j], crowl_mat[I_C][J_C]);
+                int id = to_id(crowl_mat);
+                bool check = false;
+                for (size_t i{0}; i < check_stop.size(); i++)
+                {
+                    if (id == check_stop[i])
+                    {
+
+                        check = true;
+                    }
+                }
+                if (check == false)
+                {
+
+                    // bfs *crow = new bfs;
+                    // crow = &a;
+                    check_stop.push_back(id);
+                    bfs New{bfs(crowl_mat)};
+
+                    list_child.push_back(New);
+                    //  a.childs.push_back(New);
+                    // crow = nullptr;
+                }
+            }
+        }
+    }
+    //check_stop_bfs.clear();
+    return list_child;
+    // }
+}
+
+
 
 int k = 0;
 int solve_dfs(bfs &a, int gm, int m[N][N], int source)
@@ -159,9 +158,9 @@ int solve_dfs(bfs &a, int gm, int m[N][N], int source)
                 while (true)
                 {
 
-                    std::cout << "********************" << std::endl;
-                    disp_matrix(disp->matrix);
-                    std::cout << "********************" << std::endl;
+                    // std::cout << "********************" << std::endl;
+                    // disp_matrix(disp->matrix);
+                    // std::cout << "********************" << std::endl;
                     if (is_id_final(to_id(disp->matrix), source))
                     {
                         break;
@@ -186,13 +185,15 @@ int solve_dfs(bfs &a, int gm, int m[N][N], int source)
                     //  h++;
                 }
                 std::reverse(std::begin(answer_list), std::end(answer_list));
-                // std::cout << "hello" << std::endl ;
-                // for (size_t i{0}; i < answer_list.size(); i++)
-                // {
-                //     std::time_t start = time(0);
-                //     while (difftime(std::time(0), start) <= 2)  ;
-                //     disp_matrix(answer_list[i]->matrix);
-                // }
+                std::cout << "hello" << std::endl ;
+                for (size_t i{0}; i < answer_list.size(); i++)
+                {
+                   // std::time_t start = time(0);
+                   // while (difftime(std::time(0), start) <= 2)  ;
+                    std::cout << "********************" << std::endl;
+                    disp_matrix(answer_list[i]->matrix);
+                      std::cout << "********************" << std::endl;
+                }
 
                 return 0;
             }
@@ -391,3 +392,25 @@ bool is_id_final(int a, int b)
 {
     return a == b;
 }
+
+
+
+int getInvCount(int arr[]) 
+{ 
+    int inv_count = 0; 
+    for (int i = 0; i < 9 - 1; i++) 
+        for (int j = i+1; j < 9; j++) 
+             // Value 0 is used for empty space 
+             if (arr[j] && arr[i] &&  arr[i] > arr[j]) 
+                  inv_count++; 
+    return inv_count; 
+} 
+// This function returns true if given 8 puzzle is solvable. 
+bool isSolvable(int puzzle[3][3]) 
+{ 
+    // Count inversions in given 8 puzzle 
+    int invCount = getInvCount((int *)puzzle); 
+  
+    // return true if inversion count is even. 
+    return (invCount%2 == 0); 
+} 
