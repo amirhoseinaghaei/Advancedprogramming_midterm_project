@@ -3,95 +3,106 @@
 #include <vector>
 #include "project.cpp"
 #include <ctime>
+#include <iomanip>
+
 // #include "dfs.h"
 // #include "dfs.cpp"
 #include "bfs.h"
 #define N 3
 // #include "project.h"
 int state;
+int ans;
+int condition = 0;
 int main()
 {
     srand(time(0));
-    // std::vector<int> a ;
-    // a.push_back(2) ;
-    // a.push_back(3) ;
-    // a.push_back(4) ;
-    // a.push_back(5) ;
-    // a.push_back(6) ;
-    // a.push_back(7) ;
-    //  std::find(a.begin(), a.end(), 6) != a.end() ;
-    //  if ( std::find(a.begin(), a.end(), 10) != a.end() )
-    //   {
-    //       std::cout << "amir"<< std::endl  ;
-    //   }
 
-    std::cout << "1 - Custom source and goal puzzle" << std::endl;
-    std::cout << "2 - Custom source with default goal" << std::endl;
-    std::cout << "3 - Random source with custom goal puzzle" << std::endl;
-    std::cout << "4 - Custom source with random goal puzzle" << std::endl;
-    std::cout << "5 - Random source and goal puzzle" << std::endl;
+    std::cout << std::setw(60) << std::left << "\033[0;31;102m1 - Custom source and goal puzzle\033[0m" << std::endl;
+    std::cout << std::setw(60) << std::left << "\033[0;32;102m2 - Custom source with default goal\033[0m" << std::endl;
+    std::cout << std::setw(60) << std::left << "\033[0;34;102m3 - Random source with custom goal puzzle\033[0m" << std::endl;
+    std::cout << std::setw(60) << std::left << "\033[0;35;102m4 - Custom source with random goal puzzle\033[0m" << std::endl;
+    std::cout << std::setw(60) << std::left << "\033[0;33;102m5 - Random source and goal puzzle\033[0m" << std::endl;
+
     std::cin >> state;
     int matrix[N][N];
     int goal_matrix[N][N];
 
     if (state == 1)
     {
+
+        int int_matrix;
         std::cout << "Please enter your first puzzle" << std::endl;
-        for (size_t i{0}; i < N; i++)
+        while (condition == 0)
         {
-            for (size_t j{0}; j < N; j++)
+            std::cin >> int_matrix;
+
+            matrix[0][0] = int_matrix / 100000000 % 10;
+            matrix[0][1] = int_matrix / 10000000 % 10;
+            matrix[0][2] = int_matrix / 1000000 % 10;
+            matrix[1][0] = int_matrix / 100000 % 10;
+            matrix[1][1] = int_matrix / 10000 % 10;
+            matrix[1][2] = int_matrix / 1000 % 10;
+            matrix[2][0] = int_matrix / 100 % 10;
+            matrix[2][1] = int_matrix / 10 % 10;
+            matrix[2][2] = int_matrix % 10;
+
+            if (isSolvable(matrix))
             {
-                std::cin >> matrix[i][j];
+                std::cout << "Solvable";
+                condition = 1;
             }
-        }
-        if (isSolvable(matrix))
-        {
-            std::cout << "Solvable";
-        }
-        else
-        {
-            std::cout << "Not Solvable" << std::endl;
-            return 0;
+            else
+            {
+                std::cout << "Not Solvable" << std::endl;
+                std::cout << "Please enter your valid first puzzle" << std::endl;
+            }
         }
 
         std::cout << "Please enter goal puzzle" << std::endl;
-        for (size_t i{0}; i < N; i++)
-        {
-            for (size_t j{0}; j < N; j++)
-            {
-                std::cin >> goal_matrix[i][j];
-            }
-        }
+        int int_goal_matrix;
+        std::cin >> int_goal_matrix;
+
+        goal_matrix[0][0] = int_goal_matrix / 100000000 % 10;
+        goal_matrix[0][1] = int_goal_matrix / 10000000 % 10;
+        goal_matrix[0][2] = int_goal_matrix / 1000000 % 10;
+        goal_matrix[1][0] = int_goal_matrix / 100000 % 10;
+        goal_matrix[1][1] = int_goal_matrix / 10000 % 10;
+        goal_matrix[1][2] = int_goal_matrix / 1000 % 10;
+        goal_matrix[2][0] = int_goal_matrix / 100 % 10;
+        goal_matrix[2][1] = int_goal_matrix / 10 % 10;
+        goal_matrix[2][2] = int_goal_matrix % 10;
     }
 
     if (state == 2)
     {
+        int int_matrix;
         std::cout << "Please enter your first puzzle" << std::endl;
-        for (size_t i{0}; i < N; i++)
+        while (condition == 0)
         {
-            for (size_t j{0}; j < N; j++)
+            std::cin >> int_matrix;
+
+            matrix[0][0] = int_matrix / 100000000 % 10;
+            matrix[0][1] = int_matrix / 10000000 % 10;
+            matrix[0][2] = int_matrix / 1000000 % 10;
+            matrix[1][0] = int_matrix / 100000 % 10;
+            matrix[1][1] = int_matrix / 10000 % 10;
+            matrix[1][2] = int_matrix / 1000 % 10;
+            matrix[2][0] = int_matrix / 100 % 10;
+            matrix[2][1] = int_matrix / 10 % 10;
+            matrix[2][2] = int_matrix % 10;
+
+            if (isSolvable(matrix))
             {
-                std::cin >> matrix[i][j];
+                std::cout << "Solvable";
+                condition = 1;
+            }
+            else
+            {
+                std::cout << "Not Solvable" << std::endl;
+                std::cout << "Please enter your valid first puzzle" << std::endl;
             }
         }
-        if (isSolvable(matrix))
-        {
-            std::cout << "Solvable";
-        }
-        else
-        {
-            std::cout << "Not Solvable" << std::endl;
-            return 0;
-        }
 
-        std::cout << "Please enter goal puzzle" << std::endl;
-        // for (size_t i{0}; i < N; i++)
-        // {
-        //     for (size_t j{0}; j < N; j++)
-        //     {
-        //        goal_matrix[i][j];
-        //     }
-        // }
         goal_matrix[0][0] = 1;
         goal_matrix[0][1] = 2;
         goal_matrix[0][2] = 3;
@@ -104,100 +115,84 @@ int main()
     }
     if (state == 3)
     {
-        int r;
-        std::vector<int> rand_list;
         srand(time(0));
-        bool rand_check = 0;
-        std::cout << "Please enter your first puzzle" << std::endl;
-        for (size_t i{0}; i < N; i++)
+        while (condition == 0)
         {
-            for (size_t j{0}; j < N; j++)
-            {
+            int r;
+            std::vector<int> rand_list;
 
-                r = (rand() % 9);
-                // if (i == 0 && j == 0)
-                // {
-                //     matrix[i][j] = r;
-                //     // matrix[i][j] = r;
-                //     rand_list.push_back(r);
-                // }
-                while (rand_check == 0)
+            bool rand_check = 0;
+            for (size_t i{0}; i < N; i++)
+            {
+                for (size_t j{0}; j < N; j++)
                 {
-                    if (std::find(rand_list.begin(), rand_list.end(), r) == rand_list.end())
-                    {
 
-                        matrix[i][j] = r;
-                        // matrix[i][j] = r;
-                        rand_list.push_back(r);
-                        rand_check = 1;
-                        //      break;
-                    }
-                    else
+                    r = (rand() % 9);
+                    while (rand_check == 0)
                     {
-                        r = (rand() % 9);
-                        std::cout << r << std::endl;
+                        if (std::find(rand_list.begin(), rand_list.end(), r) == rand_list.end())
+                        {
+
+                            matrix[i][j] = r;
+                            rand_list.push_back(r);
+                            rand_check = 1;
+                        }
+                        else
+                        {
+                            r = (rand() % 9);
+                            std::cout << r << std::endl;
+                        }
                     }
+
+                    rand_check = 0;
                 }
-                // if (i == 0 && j == 0)
-                // {
-                //     matrix[i][j] = r;
-                //     // matrix[i][j] = r;
-                //     rand_list.push_back(r);
-                // }
-                rand_check = 0;
-
-                // rand_check = true ;
-                // for (i = 0; i < 3; ++i)
-                // {
-                //     for (j = 0; j < 3; ++j)
-                //     {
-
-                //     }
-                // }
             }
-        }
-        disp_matrix(matrix);
-        if (isSolvable(matrix))
-        {
-            std::cout << "Solvable" << std::endl;
-        }
-        else
-        {
-            std::cout << "Not Solvable" << std::endl;
-            return 0;
-        }
-
-        std::cout << "" << std::endl ;
-        std::cout << "\e[1;34mPlease enter goal puzzle" << std::endl;
-        for (size_t i{0}; i < N; i++)
-        {
-            for (size_t j{0}; j < N; j++)
+            disp_matrix(matrix);
+            if (isSolvable(matrix))
             {
-                std::cin >> goal_matrix[i][j];
+                std::cout << "Solvable" << std::endl;
+                condition = 1;
+            }
+            else
+            {
+                std::cout << "Not Solvable" << std::endl;
             }
         }
-        // goal_matrix[0][0] = 1;
-        // goal_matrix[0][1] = 2;
-        // goal_matrix[0][2] = 3;
-        // goal_matrix[1][0] = 4;
-        // goal_matrix[1][1] = 5;
-        // goal_matrix[1][2] = 6;
-        // goal_matrix[2][0] = 7;
-        // goal_matrix[2][1] = 8;
-        // goal_matrix[2][2] = 0;
+
+        std::cout << "Please enter goal puzzle" << std::endl;
+        int int_goal_matrix;
+        std::cin >> int_goal_matrix;
+
+        goal_matrix[0][0] = int_goal_matrix / 100000000 % 10;
+        goal_matrix[0][1] = int_goal_matrix / 10000000 % 10;
+        goal_matrix[0][2] = int_goal_matrix / 1000000 % 10;
+        goal_matrix[1][0] = int_goal_matrix / 100000 % 10;
+        goal_matrix[1][1] = int_goal_matrix / 10000 % 10;
+        goal_matrix[1][2] = int_goal_matrix / 1000 % 10;
+        goal_matrix[2][0] = int_goal_matrix / 100 % 10;
+        goal_matrix[2][1] = int_goal_matrix / 10 % 10;
+        goal_matrix[2][2] = int_goal_matrix % 10;
+
     }
     bfs a{matrix};
-    //check_stop_bfs.push_back(a);
-    // disp_matrix(matrix);
-    // disp_matrix(goal_matrix);
     check_stop_bfs.push_back(to_id(matrix));
-    //solve_dfs(a, to_id(goal_matrix), matrix, to_id(matrix));
-    solve_bfs(a, goal_matrix, matrix) ;
-    // std::vector<int> a  ;
-    // int d = 5 ;
-    // a.push_back(d) ;
-    // d = 7 ;
-    // a.push_back(d);
-    // std::cout << a[0] << a[1] << std::endl ;
+    std::cout << "Which way do you prefer?" << std::endl;
+    std::cout << "1-BFS" << std::endl;
+    std::cout << "2-DFS" << std::endl;
+    std::cin >> ans;
+
+    if (ans == 1)
+    {
+        int depth;
+        std::cout << "Please enter depth of the algorithm" << std::endl;
+        std::cin >> depth;
+        solve_bfs(a, goal_matrix, matrix, to_id(matrix), depth);
+    }
+    if (ans == 2)
+
+    {
+        solve_dfs(a, to_id(goal_matrix), matrix, to_id(matrix));
+    }
+
     return 0;
 }

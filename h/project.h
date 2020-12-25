@@ -9,6 +9,7 @@
 
 
 std::vector<int> check_stop_bfs;
+std::vector<int> check_stop;
 
 struct greaterSmaller { 
     int x, y; 
@@ -20,11 +21,12 @@ bool is_final(int m[N][N], int gm[N][N]);
 Struct find_zero_location(bfs& a);
 void set_equal(int wanted_mat[N][N] , int from_mat[N][N]); 
 int solve_dfs(bfs& a , int gm,int m[N][N] , int source) ; 
-int solve_bfs(bfs& a, int gm[N][N], int m[N][N]) ;
-std::vector<bfs> create_bfs_child(bfs& a, int I_C, int J_C, int gm[N][N]);
+int solve_bfs(bfs& a, int gm[N][N], int m[N][N], int source , int depth);
+std::vector<std::shared_ptr<bfs>> create_bfs_child(bfs& a, int I_C, int J_C, int gm[N][N]);
 bool isSolvable(int puzzle[3][3])  ; 
 int getInvCount(int arr[]) ;
 std::vector<std::shared_ptr<bfs>> create_dfs_child(bfs& a, int I_C, int J_C , int gm) ;
+auto to_matrix(int id) ;
 // bool is_in_list(int inp ) ;
  // void add_to_list(int inp) ;
 int to_id(int mat[N][N]);
