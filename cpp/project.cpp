@@ -1,6 +1,6 @@
 #include <iostream>
 #include "project.h"
-#include "bfs.h"
+#include "Node.h"
 #include <cmath>
 #include <vector>
 #include <ctime>
@@ -10,12 +10,12 @@
 #define N 3
 typedef struct greaterSmaller Struct;
 
-int solve_bfs(bfs &a, int gm[N][N], int m[N][N], int source, int depth)
+int solve_Node(Node &a, int gm[N][N], int m[N][N], int source, int depth)
 {
     int func_depth;
     func_depth = 0;
-    std::vector<std::shared_ptr<bfs>> this_row_child = create_bfs_child(a, find_zero_location(a).x, find_zero_location(a).y, gm);
-    std::vector<std::shared_ptr<bfs>> this_row_child_next;
+    std::vector<std::shared_ptr<Node>> this_row_child = create_Node_child(a, find_zero_location(a).x, find_zero_location(a).y, gm);
+    std::vector<std::shared_ptr<Node>> this_row_child_next;
     if (is_final(m, gm) == true)
     {
 
@@ -38,8 +38,8 @@ int solve_bfs(bfs &a, int gm[N][N], int m[N][N], int source, int depth)
                     std::cout << "Here is the matrix" << std::endl;
                     disp_matrix(this_row_child[i]->matrix);
 
-                    std::vector<bfs *> answer_list;
-                    bfs *disp;
+                    std::vector<Node *> answer_list;
+                    Node *disp;
 
                     disp = this_row_child[i].get();
                     answer_list.push_back((disp));
@@ -73,7 +73,7 @@ int solve_bfs(bfs &a, int gm[N][N], int m[N][N], int source, int depth)
                 }
                 else
                 {
-                    std::vector<std::shared_ptr<bfs>> this_row_child_next_crowler = create_bfs_child(*this_row_child[i], find_zero_location(*this_row_child[i]).x, find_zero_location(*this_row_child[i]).y, gm);
+                    std::vector<std::shared_ptr<Node>> this_row_child_next_crowler = create_Node_child(*this_row_child[i], find_zero_location(*this_row_child[i]).x, find_zero_location(*this_row_child[i]).y, gm);
 
                     for (size_t i{0}; i < this_row_child_next_crowler.size(); i++)
                     {
@@ -105,10 +105,10 @@ int solve_bfs(bfs &a, int gm[N][N], int m[N][N], int source, int depth)
     }
 }
 
-std::vector<std::shared_ptr<bfs>> create_bfs_child(bfs &a, int I_C, int J_C, int gm[N][N])
+std::vector<std::shared_ptr<Node>> create_Node_child(Node &a, int I_C, int J_C, int gm[N][N])
 {
 
-    std::vector<std::shared_ptr<bfs>> list_child;
+    std::vector<std::shared_ptr<Node>> list_child;
 
     for (int i{0}; i < N; i++)
     {
@@ -135,14 +135,14 @@ std::vector<std::shared_ptr<bfs>> create_bfs_child(bfs &a, int I_C, int J_C, int
                 if (check == false)
                 {
 
-                    // bfs *crow = new bfs;
+                    // Node *crow = new Node;
                     // crow = &a;
                     check_stop.push_back(id);
-                    // bfs New{bfs(crowl_mat)};
+                    // Node New{Node(crowl_mat)};
 
                     // list_child.push_back(New);
                     // a.childs.push_back(New);
-                    std::shared_ptr<bfs> New(new bfs(&a, crowl_mat));
+                    std::shared_ptr<Node> New(new Node(&a, crowl_mat));
                     // *New = wq;
                     list_child.push_back(New);
                     a.childs.push_back(New);
@@ -151,22 +151,22 @@ std::vector<std::shared_ptr<bfs>> create_bfs_child(bfs &a, int I_C, int J_C, int
             }
         }
     }
-    //check_stop_bfs.clear();
+    //check_stop_Node.clear();
     return list_child;
     // }
 }
 
 int k = 0;
 int depth = 0;
-int solve_dfs(bfs &a, int gm, int m[N][N], int source)
+int solve_dfs(Node &a, int gm, int m[N][N], int source)
 {
 
-    // if (check_stop_bfs.size() == 1)
+    // if (check_stop_Node.size() == 1)
     // {
     //         depth++ ;
     // }
 
-    std::vector<std::shared_ptr<bfs>> this_row_child = create_dfs_child(a, find_zero_location(a).x, find_zero_location(a).y, gm);
+    std::vector<std::shared_ptr<Node>> this_row_child = create_dfs_child(a, find_zero_location(a).x, find_zero_location(a).y, gm);
     if (is_id_final(to_id(m), gm) == true)
     {
 
@@ -195,11 +195,11 @@ int solve_dfs(bfs &a, int gm, int m[N][N], int source)
                 k = 1;
                 std::cout << "Here is the answer :" << std::endl;
                 std::cout << depth << std::endl;
-                std::cout << check_stop_bfs.size() << std::endl;
+                std::cout << check_stop_Node.size() << std::endl;
                 // disp_matrix(this_row_child[i]->matrix);
-                std::vector<bfs *> answer_list;
+                std::vector<Node *> answer_list;
                 int h = 0;
-                bfs *disp;
+                Node *disp;
 
                 disp = this_row_child[i].get();
                 //  answer_list.push_back((disp));
@@ -258,7 +258,7 @@ int solve_dfs(bfs &a, int gm, int m[N][N], int source)
         // if (k != 1)
         // {
 
-        check_stop_bfs.resize(check_stop_bfs.size() - this_row_child.size());
+        check_stop_Node.resize(check_stop_Node.size() - this_row_child.size());
 
         depth--;
         // }
@@ -267,10 +267,10 @@ int solve_dfs(bfs &a, int gm, int m[N][N], int source)
     return 0;
 }
 
-std::vector<std::shared_ptr<bfs>> create_dfs_child(bfs &a, int I_C, int J_C, int gm)
+std::vector<std::shared_ptr<Node>> create_dfs_child(Node &a, int I_C, int J_C, int gm)
 {
 
-    std::vector<std::shared_ptr<bfs>> list_child;
+    std::vector<std::shared_ptr<Node>> list_child;
 
     for (int i{0}; i < N; i++)
     {
@@ -286,28 +286,28 @@ std::vector<std::shared_ptr<bfs>> create_dfs_child(bfs &a, int I_C, int J_C, int
                 std::swap(crowl_mat[i][j], crowl_mat[I_C][J_C]);
                 int id = to_id(crowl_mat);
                 bool check = false;
-                //  std::cout << check_stop_bfs.size() << std::endl;
-                // for (size_t i{0}; i < check_stop_bfs.size(); i++)
+                //  std::cout << check_stop_Node.size() << std::endl;
+                // for (size_t i{0}; i < check_stop_Node.size(); i++)
                 // {
-                //     if (id == check_stop_bfs[i])
+                //     if (id == check_stop_Node[i])
                 //     {
 
                 //         check = true;
                 //     }
                 // }
-                if (std::find(check_stop_bfs.begin(), check_stop_bfs.end(), id) != check_stop_bfs.end())
+                if (std::find(check_stop_Node.begin(), check_stop_Node.end(), id) != check_stop_Node.end())
                 {
                     check = true;
                 }
                 if (check == false)
                 {
 
-                    check_stop_bfs.push_back(id);
+                    check_stop_Node.push_back(id);
 
-                    // std::shared_ptr<bfs> b(new bfs);
+                    // std::shared_ptr<Node> b(new Node);
                     // *b = a ;
 
-                    std::shared_ptr<bfs> New(new bfs(&a, crowl_mat));
+                    std::shared_ptr<Node> New(new Node(&a, crowl_mat));
                     // *New = wq;
                     list_child.push_back(New);
                     a.childs.push_back(New);
@@ -337,7 +337,7 @@ bool is_final(int m[N][N], int gm[N][N])
     return check;
 }
 
-Struct find_zero_location(bfs &a)
+Struct find_zero_location(Node &a)
 {
 
     Struct s;
@@ -379,16 +379,16 @@ void set_equal(int wanted_mat[N][N], int from_mat[N][N])
 
 // void add_to_list(int inp)
 // {
-//     check_stop_bfs.push_back(inp);
+//     check_stop_Node.push_back(inp);
 // }
 
 // bool is_in_list(int inp)
 // {
 //     bool a;
 
-//     for (size_t i{0}; i < check_stop_bfs.size(); i++)
+//     for (size_t i{0}; i < check_stop_Node.size(); i++)
 //     {
-//         if (inp == check_stop_bfs[i])
+//         if (inp == check_stop_Node[i])
 //         //  if (inp[1][1]  == 3)
 //         {
 //             //
@@ -527,13 +527,13 @@ auto to_matrix(int id)
     return matrix;
 }
 
-int solve_biodirectal(bfs &a , bfs&b, int gm[N][N], int m[N][N], int source_f , int source_b)
+int solve_biodirectal(Node &a , Node&b, int gm[N][N], int m[N][N], int source_f , int source_b)
 {
 
-    std::vector<std::shared_ptr<bfs>> this_row_child_1 = create_bfs_child_b(a, find_zero_location(a).x, find_zero_location(a).y, gm);
-    std::vector<std::shared_ptr<bfs>> this_row_child_next_1;
-   std::vector<std::shared_ptr<bfs>> this_row_child_2 = create_bfs_child_f(b, find_zero_location(b).x, find_zero_location(b).y, m);
-   std::vector<std::shared_ptr<bfs>> this_row_child_next_2;
+    std::vector<std::shared_ptr<Node>> this_row_child_1 = create_Node_child_b(a, find_zero_location(a).x, find_zero_location(a).y, gm);
+    std::vector<std::shared_ptr<Node>> this_row_child_next_1;
+   std::vector<std::shared_ptr<Node>> this_row_child_2 = create_Node_child_f(b, find_zero_location(b).x, find_zero_location(b).y, m);
+   std::vector<std::shared_ptr<Node>> this_row_child_next_2;
     if (is_final(a.matrix, b.matrix) == true)
     {
 
@@ -553,7 +553,7 @@ int solve_biodirectal(bfs &a , bfs&b, int gm[N][N], int m[N][N], int source_f , 
                 
                   
                  
-                    std::vector<std::shared_ptr<bfs>> this_row_child_next_crowler_1 = create_bfs_child_b(*this_row_child_1[i], find_zero_location(*this_row_child_1[i]).x, find_zero_location(*this_row_child_1[i]).y, gm);
+                    std::vector<std::shared_ptr<Node>> this_row_child_next_crowler_1 = create_Node_child_b(*this_row_child_1[i], find_zero_location(*this_row_child_1[i]).x, find_zero_location(*this_row_child_1[i]).y, gm);
 
                     for (size_t i{0}; i < this_row_child_next_crowler_1.size(); i++)
                     {
@@ -565,7 +565,7 @@ int solve_biodirectal(bfs &a , bfs&b, int gm[N][N], int m[N][N], int source_f , 
             for (size_t i{0}; i < this_row_child_2.size(); i++)
             {
                 
-                    std::vector<std::shared_ptr<bfs>> this_row_child_next_crowler_2 = create_bfs_child_f(*this_row_child_2[i], find_zero_location(*this_row_child_2[i]).x, find_zero_location(*this_row_child_2[i]).y, gm);
+                    std::vector<std::shared_ptr<Node>> this_row_child_next_crowler_2 = create_Node_child_f(*this_row_child_2[i], find_zero_location(*this_row_child_2[i]).x, find_zero_location(*this_row_child_2[i]).y, gm);
 
                     for (size_t i{0}; i < this_row_child_next_crowler_2.size(); i++)
                     {
@@ -584,11 +584,11 @@ int solve_biodirectal(bfs &a , bfs&b, int gm[N][N], int m[N][N], int source_f , 
                         std::cout << to_id(this_row_child_2[j]->matrix) << std::endl ; 
                         std::cout << to_id(this_row_child_1[i]->matrix) << std::endl ; 
                         
-                    std::vector<bfs *> answer_list_1;
-                    bfs *disp_1;
+                    std::vector<Node *> answer_list_1;
+                    Node *disp_1;
                         
-                    std::vector<bfs *> answer_list_2;
-                    bfs *disp_2;
+                    std::vector<Node *> answer_list_2;
+                    Node *disp_2;
                     disp_2 = this_row_child_2[j].get();
                     answer_list_2.push_back((disp_2));
                     disp_1 = this_row_child_1[i].get();
@@ -676,10 +676,10 @@ int solve_biodirectal(bfs &a , bfs&b, int gm[N][N], int m[N][N], int source_f , 
 
 
 
-std::vector<std::shared_ptr<bfs>> create_bfs_child_b(bfs &a, int I_C, int J_C, int gm[N][N])
+std::vector<std::shared_ptr<Node>> create_Node_child_b(Node &a, int I_C, int J_C, int gm[N][N])
 {
 
-    std::vector<std::shared_ptr<bfs>> list_child;
+    std::vector<std::shared_ptr<Node>> list_child;
 
     for (int i{0}; i < N; i++)
     {
@@ -706,14 +706,14 @@ std::vector<std::shared_ptr<bfs>> create_bfs_child_b(bfs &a, int I_C, int J_C, i
                 if (check == false)
                 {
 
-                    // bfs *crow = new bfs;
+                    // Node *crow = new Node;
                     // crow = &a;
                     check_stop_b.push_back(id);
-                    // bfs New{bfs(crowl_mat)};
+                    // Node New{Node(crowl_mat)};
 
                     // list_child.push_back(New);
                     // a.childs.push_back(New);
-                    std::shared_ptr<bfs> New(new bfs(&a, crowl_mat));
+                    std::shared_ptr<Node> New(new Node(&a, crowl_mat));
                     // *New = wq;
                     list_child.push_back(New);
                     a.childs.push_back(New);
@@ -722,15 +722,15 @@ std::vector<std::shared_ptr<bfs>> create_bfs_child_b(bfs &a, int I_C, int J_C, i
             }
         }
     }
-    //check_stop_bfs.clear();
+    //check_stop_Node.clear();
     return list_child;
     // }
 }
 
-std::vector<std::shared_ptr<bfs>> create_bfs_child_f(bfs &a, int I_C, int J_C, int gm[N][N])
+std::vector<std::shared_ptr<Node>> create_Node_child_f(Node &a, int I_C, int J_C, int gm[N][N])
 {
 
-    std::vector<std::shared_ptr<bfs>> list_child;
+    std::vector<std::shared_ptr<Node>> list_child;
 
     for (int i{0}; i < N; i++)
     {
@@ -757,14 +757,14 @@ std::vector<std::shared_ptr<bfs>> create_bfs_child_f(bfs &a, int I_C, int J_C, i
                 if (check == false)
                 {
 
-                    // bfs *crow = new bfs;
+                    // Node *crow = new Node;
                     // crow = &a;
                     check_stop_f.push_back(id);
-                    // bfs New{bfs(crowl_mat)};
+                    // Node New{Node(crowl_mat)};
 
                     // list_child.push_back(New);
                     // a.childs.push_back(New);
-                    std::shared_ptr<bfs> New(new bfs(&a, crowl_mat));
+                    std::shared_ptr<Node> New(new Node(&a, crowl_mat));
                     // *New = wq;
                     list_child.push_back(New);
                     a.childs.push_back(New);
@@ -773,7 +773,7 @@ std::vector<std::shared_ptr<bfs>> create_bfs_child_f(bfs &a, int I_C, int J_C, i
             }
         }
     }
-    //check_stop_bfs.clear();
+    //check_stop_Node.clear();
     return list_child;
     // }
 }

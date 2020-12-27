@@ -1,9 +1,9 @@
-#include "bfs.h"
+#include "Node.h"
 
 #include <iostream>
 #define N 3
 
-bfs::bfs(bfs *pr, int mat[3][3])
+Node::Node(Node *pr, int mat[3][3])
 {
     // std::cout << "One argument  constructor" << std::endl;
     //  matrix = mat;
@@ -14,10 +14,10 @@ bfs::bfs(bfs *pr, int mat[3][3])
             matrix[i][j] = mat[i][j];
         }
     }
-    parent = new bfs; 
+    parent = new Node; 
     *parent = *pr;
 }
-bfs::bfs(int mat[N][N])
+Node::Node(int mat[N][N])
 {
 
     // std::cout << "One argument  constructor" << std::endl;
@@ -28,11 +28,11 @@ bfs::bfs(int mat[N][N])
             matrix[i][j] = mat[i][j];
         }
     }
-    // parent = new bfs;
+    // parent = new Node;
     // parent = this;
 }
 
-bfs::bfs(const bfs & cp)
+Node::Node(const Node & cp)
 {
     for (int i{0}; i < N; i++)
     {
@@ -44,7 +44,7 @@ bfs::bfs(const bfs & cp)
     parent = cp.parent ; 
 
 }
-bfs::bfs()
+Node::Node()
 {
     // std::cout << "Default constructor" << std::endl;
 }

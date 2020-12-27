@@ -7,7 +7,7 @@
 
 // #include "dfs.h"
 // #include "dfs.cpp"
-#include "bfs.h"
+#include "Node.h"
 #define N 3
 // #include "project.h"
 int state;
@@ -236,11 +236,11 @@ int main()
         goal_matrix[2][2] = 0;
     }
 
-    bfs a{matrix};
-    bfs b{goal_matrix};
-    check_stop_bfs.push_back(to_id(matrix));
+    Node a{matrix};
+    Node b{goal_matrix};
+    check_stop_Node.push_back(to_id(matrix));
     std::cout << "Which way do you prefer?" << std::endl;
-    std::cout << "1-BFS" << std::endl;
+    std::cout << "1-Node" << std::endl;
     std::cout << "2-DFS" << std::endl;
     std::cout << "2-BIO" << std::endl;
     std::cin >> ans;
@@ -250,7 +250,7 @@ int main()
         int depth;
         std::cout << "Please enter depth of the algorithm" << std::endl;
         std::cin >> depth;
-        solve_bfs(a, goal_matrix, matrix, to_id(matrix), depth);
+        solve_Node(a, goal_matrix, matrix, to_id(matrix), depth);
     }
     if (ans == 2)
 
@@ -262,9 +262,9 @@ int main()
     {
         solve_biodirectal(a , b, goal_matrix , matrix, to_id(matrix) , to_id(goal_matrix)) ;
     }
-    // for (size_t i = 0; i < check_stop_bfs.size(); i++)
+    // for (size_t i = 0; i < check_stop_Node.size(); i++)
     // {
-    //     std::cout <<i <<check_stop_bfs[i] << std::endl ;
+    //     std::cout <<i <<check_stop_Node[i] << std::endl ;
     // }
 
     return 0;
