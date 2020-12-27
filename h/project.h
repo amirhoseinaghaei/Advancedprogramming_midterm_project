@@ -9,6 +9,7 @@
 
 
 std::vector<int> check_stop_Node;
+std::vector<int> check_stop_Node_without_limit;
 std::vector<int> check_stop;
 std::vector<int> check_stop_b;
 std::vector<int> check_stop_f;
@@ -33,6 +34,8 @@ std::vector<std::shared_ptr<Node>> create_dfs_child(Node& a, int I_C, int J_C , 
 int solve_biodirectal(Node &a , Node&b, int gm[N][N], int m[N][N], int source_f , int source_b) ;
 std::vector<std::shared_ptr<Node>> create_Node_child_f(Node &a, int I_C, int J_C, int gm[N][N]);
 std::vector<std::shared_ptr<Node>> create_Node_child_b(Node &a, int I_C, int J_C, int gm[N][N]);
+int solve_dfs_without_limit(Node &a, int gm, int m[N][N], int source);
+std::vector<std::shared_ptr<Node>> create_dfs_child_without_limit(Node &a, int I_C, int J_C, int gm);
 auto to_matrix(int id) ;
 // bool is_in_list(int inp ) ;
  // void add_to_list(int inp) ;

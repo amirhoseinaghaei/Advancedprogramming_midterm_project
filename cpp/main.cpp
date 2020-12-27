@@ -5,11 +5,8 @@
 #include <ctime>
 #include <iomanip>
 
-// #include "dfs.h"
-// #include "dfs.cpp"
 #include "Node.h"
 #define N 3
-// #include "project.h"
 int state;
 int ans;
 int condition = 0;
@@ -17,17 +14,18 @@ int main()
 {
     srand(time(0));
 
-    std::cout << "\033[0;31;107m"  << std::setw(61) << std::left << "Hello there this is 8-puzzle solver program                                                 \033[0m "  << std::endl ;
-    std::cout << "\033[0;31;107m"  << std::setw(61) << std::left << "                                                                                            \033[0m "  << std::endl ;
-    std::cout << "\033[0;31;107m"  << std::setw(61) << std::left << "                                                                                            \033[0m "  << std::endl ;
-    std::cout << "\033[0;31;107m"  << std::setw(61) << std::left << "                                                                                            \033[0m "  << std::endl ;
-    std::cout << "\033[0;31;107m"  << std::setw(61) << std::left << "                                                                                            \033[0m "  << std::endl ;
-    std::cout << "\033[0;31;107m"  << std::setw(61) << std::left << "Please choose one of this state                                                             \033[0m "  << std::endl ;
-    std::cout << "\033[0;31;107m"  << std::setw(61) << std::left << "                                                                                            \033[0m "  << std::endl ;
-    std::cout << "\033[0;31;107m"  << std::setw(61) << std::left << "1 - Custom source with custom goal puzzle                                                   \033[0m " << std::endl;
-    std::cout << "\033[0;32;107m"  << std::setw(60) << std::left << "2 - Custom source with default goal puzzle                                                  \033[0m" << std::endl;
-    std::cout << "\033[0;34;107m"  << std::setw(61) << std::left << "3 - Random source with custom goal puzzle                                                   \033[0m " << std::endl;
-    std::cout << "\033[0;35;107m"  << std::setw(60) << std::left << "4 - Random source with default goal puzzle                                                  \033[0m" << std::endl;
+    std::cout << "\033[1;30;106m" << std::setw(61) << std::left << "Hello there                                                                                 \033[0m " << std::endl;
+    std::cout << "\033[0;30;106m" << std::setw(61) << std::left << "this is 8-puzzle solver program by Amir Hossein Aghaei                                      \033[0m " << std::endl;
+    std::cout << "\033[0;30;106m" << std::setw(61) << std::left << "                                                                                            \033[0m " << std::endl;
+    std::cout << "\033[0;30;106m" << std::setw(61) << std::left << "                                                                                            \033[0m " << std::endl;
+    std::cout << "\033[0;30;106m" << std::setw(61) << std::left << "                                                                                            \033[0m " << std::endl;
+    std::cout << "\033[0;30;106m" << std::setw(61) << std::left << "                                                                                            \033[0m " << std::endl;
+    std::cout << "\033[0;30;106m" << std::setw(61) << std::left << "Please choose one of this state                                                             \033[0m " << std::endl;
+    std::cout << "\033[0;30;106m" << std::setw(61) << std::left << "                                                                                            \033[0m " << std::endl;
+    std::cout << "\033[0;30;106m" << std::setw(61) << std::left << "1 - Custom source with custom goal puzzle                                                   \033[0m " << std::endl;
+    std::cout << "\033[0;30;106m" << std::setw(60) << std::left << "2 - Custom source with default goal puzzle                                                  \033[0m" << std::endl;
+    std::cout << "\033[0;30;106m" << std::setw(61) << std::left << "3 - Random source with custom goal puzzle                                                   \033[0m " << std::endl;
+    std::cout << "\033[0;30;106m" << std::setw(60) << std::left << "4 - Random source with default goal puzzle                                                  \033[0m" << std::endl;
 
     std::cin >> state;
     int matrix[N][N];
@@ -122,8 +120,6 @@ int main()
     if (state == 3)
     {
         srand(time(0));
-        while (condition == 0)
-        {
             int r;
             std::vector<int> rand_list;
 
@@ -153,17 +149,9 @@ int main()
                     rand_check = 0;
                 }
             }
-            disp_matrix(matrix);
-            if (isSolvable(matrix))
-            {
-                std::cout << "Solvable" << std::endl;
-                condition = 1;
-            }
-            else
-            {
-                std::cout << "Not Solvable" << std::endl;
-            }
-        }
+            
+        std::cout << "This is your primary matrix" << std::endl << std::endl ;
+        disp_matrix(matrix) ; 
 
         std::cout << "Please enter goal puzzle" << std::endl;
         int int_goal_matrix;
@@ -178,6 +166,19 @@ int main()
         goal_matrix[2][0] = int_goal_matrix / 100 % 10;
         goal_matrix[2][1] = int_goal_matrix / 10 % 10;
         goal_matrix[2][2] = int_goal_matrix % 10;
+        Node c{matrix};
+        int yn = solve_dfs_without_limit(c, to_id(goal_matrix), matrix , to_id(matrix)) ; 
+        if(yn == 1 )
+        {
+            std::cout << "This puzzle is not solvable" << std::endl ; 
+        }
+        else
+        {
+
+            std::cout << "This puzzle is  solvable"  << std::endl ; 
+        }
+        
+
     }
     if (state == 4)
     {
@@ -240,9 +241,9 @@ int main()
     Node b{goal_matrix};
     check_stop_Node.push_back(to_id(matrix));
     std::cout << "Which way do you prefer?" << std::endl;
-    std::cout << "1-Node" << std::endl;
+    std::cout << "1-BFS" << std::endl;
     std::cout << "2-DFS" << std::endl;
-    std::cout << "2-BIO" << std::endl;
+    std::cout << "3-BIO" << std::endl;
     std::cin >> ans;
 
     if (ans == 1)
@@ -257,15 +258,11 @@ int main()
     {
         solve_dfs(a, to_id(goal_matrix), matrix, to_id(matrix));
     }
-     if (ans == 3)
+    if (ans == 3)
 
     {
-        solve_biodirectal(a , b, goal_matrix , matrix, to_id(matrix) , to_id(goal_matrix)) ;
+        solve_biodirectal(a, b, goal_matrix, matrix, to_id(matrix), to_id(goal_matrix));
     }
-    // for (size_t i = 0; i < check_stop_Node.size(); i++)
-    // {
-    //     std::cout <<i <<check_stop_Node[i] << std::endl ;
-    // }
 
     return 0;
 }

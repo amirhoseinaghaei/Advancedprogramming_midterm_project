@@ -5,8 +5,7 @@
 
 Node::Node(Node *pr, int mat[3][3])
 {
-    // std::cout << "One argument  constructor" << std::endl;
-    //  matrix = mat;
+
     for (int i{0}; i < N; i++)
     {
         for (size_t j{0}; j < N; j++)
@@ -20,7 +19,6 @@ Node::Node(Node *pr, int mat[3][3])
 Node::Node(int mat[N][N])
 {
 
-    // std::cout << "One argument  constructor" << std::endl;
     for (int i{0}; i < N; i++)
     {
         for (size_t j{0}; j < N; j++)
@@ -28,8 +26,7 @@ Node::Node(int mat[N][N])
             matrix[i][j] = mat[i][j];
         }
     }
-    // parent = new Node;
-    // parent = this;
+
 }
 
 Node::Node(const Node & cp)
