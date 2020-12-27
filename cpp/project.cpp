@@ -5,14 +5,15 @@
 #include <vector>
 #include <ctime>
 #include <memory>
+#include <iomanip>
 
 #define N 3
 typedef struct greaterSmaller Struct;
 
-int solve_bfs(bfs &a, int gm[N][N], int m[N][N] , int source , int depth)
+int solve_bfs(bfs &a, int gm[N][N], int m[N][N], int source, int depth)
 {
-    int func_depth ;
-    func_depth = 0 ; 
+    int func_depth;
+    func_depth = 0;
     std::vector<std::shared_ptr<bfs>> this_row_child = create_bfs_child(a, find_zero_location(a).x, find_zero_location(a).y, gm);
     std::vector<std::shared_ptr<bfs>> this_row_child_next;
     if (is_final(m, gm) == true)
@@ -63,16 +64,12 @@ int solve_bfs(bfs &a, int gm[N][N], int m[N][N] , int source , int depth)
                         //   "2 - Custom source with default goal"
                         std::cout << "\033[94;1m" << i << ":"
                                   << "\033[0m" << std::endl;
-                        std::cout << "\033[92;1m***********************\033[0m" << std::endl;
+                     //   std::cout << "\033[92;1m***********************\033[0m" << std::endl;
                         disp_matrix(answer_list[i]->matrix);
-                        std::cout << "\033[92;1m***********************\033[0m" << std::endl;
+                     //   std::cout << "\033[92;1m***********************\033[0m" << std::endl;
                     }
 
                     return 0;
-            
-                    
-                
-                
                 }
                 else
                 {
@@ -87,12 +84,12 @@ int solve_bfs(bfs &a, int gm[N][N], int m[N][N] , int source , int depth)
                 //  std::cout << this_row_child.size() << std::endl;
                 //  std::cout << "*******************" << std::endl ;
             }
-            func_depth ++ ;
+            func_depth++;
             if (func_depth >= depth)
             {
-                return 0 ; 
-            } 
-            
+                return 0;
+            }
+
             // if (this_row_child_next.size() == 0)
             // {
             //     return 0 ;
@@ -108,12 +105,11 @@ int solve_bfs(bfs &a, int gm[N][N], int m[N][N] , int source , int depth)
     }
 }
 
-
 std::vector<std::shared_ptr<bfs>> create_bfs_child(bfs &a, int I_C, int J_C, int gm[N][N])
 {
 
     std::vector<std::shared_ptr<bfs>> list_child;
-   
+
     for (int i{0}; i < N; i++)
     {
 
@@ -147,9 +143,9 @@ std::vector<std::shared_ptr<bfs>> create_bfs_child(bfs &a, int I_C, int J_C, int
                     // list_child.push_back(New);
                     // a.childs.push_back(New);
                     std::shared_ptr<bfs> New(new bfs(&a, crowl_mat));
-                // *New = wq;
-                   list_child.push_back(New);
-                   a.childs.push_back(New);
+                    // *New = wq;
+                    list_child.push_back(New);
+                    a.childs.push_back(New);
                     // crow = nullptr;
                 }
             }
@@ -161,12 +157,16 @@ std::vector<std::shared_ptr<bfs>> create_bfs_child(bfs &a, int I_C, int J_C, int
 }
 
 int k = 0;
-int depth;
+int depth = 0;
 int solve_dfs(bfs &a, int gm, int m[N][N], int source)
 {
 
-    std::vector<std::shared_ptr<bfs>> this_row_child = create_dfs_child(a, find_zero_location(a).x, find_zero_location(a).y, gm);
+    // if (check_stop_bfs.size() == 1)
+    // {
+    //         depth++ ;
+    // }
 
+    std::vector<std::shared_ptr<bfs>> this_row_child = create_dfs_child(a, find_zero_location(a).x, find_zero_location(a).y, gm);
     if (is_id_final(to_id(m), gm) == true)
     {
 
@@ -175,13 +175,14 @@ int solve_dfs(bfs &a, int gm, int m[N][N], int source)
         return 0;
     }
     // else if (this_row_child.size() == 0)
+
     // {
     //     depth--;
     //     return 0;
     // }
     else
     {
-        // depth++ ;
+
         for (size_t i{0}; i < this_row_child.size(); i++)
         {
 
@@ -192,16 +193,16 @@ int solve_dfs(bfs &a, int gm, int m[N][N], int source)
             if (is_id_final(to_id(this_row_child[i]->matrix), gm) == true)
             {
                 k = 1;
-                //  std::cout << "Here is the answer :" << std::endl;
+                std::cout << "Here is the answer :" << std::endl;
                 std::cout << depth << std::endl;
-                //   std::cout << check_stop_bfs.size() << std::endl;
-               // disp_matrix(this_row_child[i]->matrix);
+                std::cout << check_stop_bfs.size() << std::endl;
+                // disp_matrix(this_row_child[i]->matrix);
                 std::vector<bfs *> answer_list;
                 int h = 0;
                 bfs *disp;
 
                 disp = this_row_child[i].get();
-                answer_list.push_back((disp));
+                //  answer_list.push_back((disp));
                 while (true)
                 {
                     if (is_id_final(to_id(disp->matrix), source))
@@ -224,9 +225,9 @@ int solve_dfs(bfs &a, int gm, int m[N][N], int source)
                     //   "2 - Custom source with default goal"
                     std::cout << "\033[94;1m" << i << ":"
                               << "\033[0m" << std::endl;
-                    std::cout << "\033[92;1m***********************\033[0m" << std::endl;
+                    //  std::cout << "\033[92;1m***********************\033[0m" << std::endl;
                     disp_matrix(answer_list[i]->matrix);
-                    std::cout << "\033[92;1m***********************\033[0m" << std::endl;
+                    //  std::cout << "\033[92;1m***********************\033[0m" << std::endl;
                 }
 
                 return 0;
@@ -239,29 +240,31 @@ int solve_dfs(bfs &a, int gm, int m[N][N], int source)
                 //     depth--;
                 //     return 0 ;
                 // }
-                if (depth < 10)
+                // std::cout << depth << std::endl ;
+
+                if (depth < 15)
                 {
 
                     depth++;
+                    // std::cout << this_row_child.size() << std::endl ;
                     solve_dfs(*this_row_child[i], gm, this_row_child[i]->matrix, source);
                 }
-                // else
-                // {
-                //     depth-- ;
-                //     break;
-                // }
             }
             // if (i == this_row_child.size() - 1)
             // {
             //     return 0;
             // }
         }
-        if (k != 1)
-        {
-            depth--;
-        }
-        return 0;
+        // if (k != 1)
+        // {
+
+        check_stop_bfs.resize(check_stop_bfs.size() - this_row_child.size());
+
+        depth--;
+        // }
+        // 630285147
     }
+    return 0;
 }
 
 std::vector<std::shared_ptr<bfs>> create_dfs_child(bfs &a, int I_C, int J_C, int gm)
@@ -282,7 +285,7 @@ std::vector<std::shared_ptr<bfs>> create_dfs_child(bfs &a, int I_C, int J_C, int
                 set_equal(crowl_mat, a.matrix);
                 std::swap(crowl_mat[i][j], crowl_mat[I_C][J_C]);
                 int id = to_id(crowl_mat);
-                 bool check = false;
+                bool check = false;
                 //  std::cout << check_stop_bfs.size() << std::endl;
                 // for (size_t i{0}; i < check_stop_bfs.size(); i++)
                 // {
@@ -299,16 +302,16 @@ std::vector<std::shared_ptr<bfs>> create_dfs_child(bfs &a, int I_C, int J_C, int
                 if (check == false)
                 {
 
-                check_stop_bfs.push_back(id);
+                    check_stop_bfs.push_back(id);
 
-                // std::shared_ptr<bfs> b(new bfs);
-                // *b = a ;
+                    // std::shared_ptr<bfs> b(new bfs);
+                    // *b = a ;
 
-                std::shared_ptr<bfs> New(new bfs(&a, crowl_mat));
-                // *New = wq;
-                list_child.push_back(New);
-                a.childs.push_back(New);
-                // crow = nullptr;
+                    std::shared_ptr<bfs> New(new bfs(&a, crowl_mat));
+                    // *New = wq;
+                    list_child.push_back(New);
+                    a.childs.push_back(New);
+                    // crow = nullptr;
                 }
             }
         }
@@ -402,14 +405,63 @@ void set_equal(int wanted_mat[N][N], int from_mat[N][N])
 
 void disp_matrix(int matrix[N][N])
 {
+    std::cout << "\033[90;1;100m"
+              << "--------------------------"
+              << "\033[0m" << std::endl;
+
     for (size_t i{0}; i < N; i++)
     {
         for (size_t j{0}; j < N; j++)
         {
-            std::cout << "\033[96;1m" << matrix[i][j] << " "
-                      << "\033[0m";
+            if (j == 0)
+            {
+                if (matrix[i][j] == 0)
+                {
+                    std::cout << "\033[90;1;100m" << std::setw(2) << "|"
+                              << "\033[0m"
+                              << "\033[96;1;101m" << std::setw(5) << (matrix[i][j]) << " "
+                              << "\033[0m"
+                              << "\033[90;1;100m" << std::setw(2)  << "|"
+                              << "\033[0m";
+                }
+
+                else
+                {
+                    std::cout << "\033[90;1;100m" << std::setw(2) << "|"
+                              << "\033[0m"
+                              << "\033[96;1;103m" << std::setw(5) << (matrix[i][j]) << " "
+                              << "\033[0m"
+                              << "\033[90;1;100m" << std::setw(2) << "|"
+                              << "\033[0m";
+                }
+            }
+
+            else
+            {
+                if (matrix[i][j] == 0)
+                {
+                    std::cout << "\033[96;1;101m" << std::left << std::setw(5) << matrix[i][j] << " "
+                              << "\033[0m"
+                              << "\033[90;1;100m" << std::setw(2) << "|"
+                              << "\033[0m";
+                }
+                else
+                {
+
+                    std::cout << "\033[96;1;103m" << std::left << std::setw(5) << matrix[i][j] << " "
+                              << "\033[0m"
+                              << "\033[90;1;100m" << std::setw(2) << "|"
+                              << "\033[0m";
+                }
+            }
+
+            // std::cout<< std::endl;
+            // std::cout << "*" << std::endl;
         }
         std::cout << std::endl;
+        std::cout << "\033[90;1;100m"
+                  << "--------------------------"
+                  << "\033[0m" << std::endl;
     }
 }
 
@@ -467,11 +519,261 @@ bool isSolvable(int puzzle[3][3])
     return (invCount % 2 == 0);
 }
 
-
 auto to_matrix(int id)
 {
-    int matrix[N][N] ; 
-    matrix[0][0] = id /100000000 %10 ; 
+    int matrix[N][N];
+    matrix[0][0] = id / 100000000 % 10;
     std::cout << matrix[0][0];
-    return matrix ; 
-} 
+    return matrix;
+}
+
+int solve_biodirectal(bfs &a , bfs&b, int gm[N][N], int m[N][N], int source_f , int source_b)
+{
+
+    std::vector<std::shared_ptr<bfs>> this_row_child_1 = create_bfs_child_b(a, find_zero_location(a).x, find_zero_location(a).y, gm);
+    std::vector<std::shared_ptr<bfs>> this_row_child_next_1;
+   std::vector<std::shared_ptr<bfs>> this_row_child_2 = create_bfs_child_f(b, find_zero_location(b).x, find_zero_location(b).y, m);
+   std::vector<std::shared_ptr<bfs>> this_row_child_next_2;
+    if (is_final(a.matrix, b.matrix) == true)
+    {
+
+        std::cout << "Here is the matrix" << std::endl;
+        disp_matrix(m);
+        return 0 ;
+    }
+    else
+    {
+         while (true)
+        {
+          //  this_row_child_next_1.clear();
+           // this_row_child_next_2.clear();
+
+            for (size_t i{0}; i < this_row_child_1.size(); i++)
+            {
+                
+                  
+                 
+                    std::vector<std::shared_ptr<bfs>> this_row_child_next_crowler_1 = create_bfs_child_b(*this_row_child_1[i], find_zero_location(*this_row_child_1[i]).x, find_zero_location(*this_row_child_1[i]).y, gm);
+
+                    for (size_t i{0}; i < this_row_child_next_crowler_1.size(); i++)
+                    {
+                        this_row_child_next_1.push_back(this_row_child_next_crowler_1[i]);
+                    }
+                
+
+            }
+            for (size_t i{0}; i < this_row_child_2.size(); i++)
+            {
+                
+                    std::vector<std::shared_ptr<bfs>> this_row_child_next_crowler_2 = create_bfs_child_f(*this_row_child_2[i], find_zero_location(*this_row_child_2[i]).x, find_zero_location(*this_row_child_2[i]).y, gm);
+
+                    for (size_t i{0}; i < this_row_child_next_crowler_2.size(); i++)
+                    {
+                        this_row_child_next_2.push_back(this_row_child_next_crowler_2[i]);
+                    }
+                
+           }
+            // }
+            for (size_t i = 0; i < this_row_child_1.size(); i++)
+            {
+                for (size_t j = 0; j < this_row_child_2.size(); j++)
+                {
+                    if (is_id_final(to_id(this_row_child_2[j]->matrix),to_id(this_row_child_1[i]->matrix)) == true)
+                    {
+                        std::cout << "YYYYYYYYYYYYYY" << std::endl ;
+                        std::cout << to_id(this_row_child_2[j]->matrix) << std::endl ; 
+                        std::cout << to_id(this_row_child_1[i]->matrix) << std::endl ; 
+                        
+                    std::vector<bfs *> answer_list_1;
+                    bfs *disp_1;
+                        
+                    std::vector<bfs *> answer_list_2;
+                    bfs *disp_2;
+                    disp_2 = this_row_child_2[j].get();
+                    answer_list_2.push_back((disp_2));
+                    disp_1 = this_row_child_1[i].get();
+                    answer_list_1.push_back((disp_1));
+                    while (true)
+                    {
+                        if (is_id_final(to_id(disp_1->matrix), source_f))
+                        {
+                            break;
+                        }
+                        answer_list_1.push_back((disp_1->parent));
+
+                        disp_1 = disp_1->parent;
+                    }
+                    while (true)
+                    {
+                        if (is_id_final(to_id(disp_2->matrix), source_b))
+                        {
+                            break;
+                        }
+                        answer_list_2.push_back((disp_2->parent));
+
+                        disp_2 = disp_2->parent;
+                    }
+                    std::reverse(std::begin(answer_list_1), std::end(answer_list_1));
+                    answer_list_2.erase (answer_list_2.begin(),answer_list_2.begin()+1);
+                    answer_list_1.insert(std::end(answer_list_1), std::begin(answer_list_2), std::end(answer_list_2)) ;
+                   // std::reverse(std::begin(answer_list_2), std::end(answer_list_2));
+                    //  std::cout << "hello" << std::endl;
+                    for (size_t i{0}; i < answer_list_1.size(); i++)
+
+                    {
+                        std::time_t start = time(0);
+                        while (difftime(std::time(0), start) <= 1)
+                            ;
+                        //   "2 - Custom source with default goal"
+                        std::cout << "\033[94;1m" << i << ":"
+                                  << "\033[0m" << std::endl;
+                       // std::cout << "\033[92;1m***********************\033[0m" << std::endl;
+                        disp_matrix(answer_list_1[i]->matrix);
+                      //  std::cout << "\033[92;1m***********************\033[0m" << std::endl;
+                    }
+                    // for (size_t i{0}; i < answer_list_2.size(); i++)
+
+                    // {
+                    //     std::time_t start = time(0);
+                    //     while (difftime(std::time(0), start) <= 1)
+                    //         ;
+                    //     //   "2 - Custom source with default goal"
+                    //     std::cout << "\033[94;1m" << i << ":"
+                    //               << "\033[0m" << std::endl;
+                    //     std::cout << "\033[92;1m***********************\033[0m" << std::endl;
+                    //     disp_matrix(answer_list_2[i]->matrix);
+                    //     std::cout << "\033[92;1m***********************\033[0m" << std::endl;
+                    // }
+                        
+                    
+                        return 0 ; 
+                    }
+                }
+                
+            }
+            // for (size_t i = 0; i < this_row_child_1.size(); i++)
+            // {
+            //     std::cout << to_id(this_row_child_1[i]->matrix) << "-" << std::endl ;
+            // }
+            // std::cout << "8888888888888888888888888" << std::endl ;
+            // for (size_t i = 0; i < this_row_child_2.size(); i++)
+            // {
+            //     std::cout << to_id(this_row_child_2[i]->matrix) << "-" << std::endl;
+            // }
+            
+            
+            this_row_child_1.clear();
+            this_row_child_1 = this_row_child_next_1;
+            this_row_child_2.clear();
+            this_row_child_2 = this_row_child_next_2;
+
+        }
+    
+     return 0 ; 
+}
+
+}
+
+
+
+std::vector<std::shared_ptr<bfs>> create_bfs_child_b(bfs &a, int I_C, int J_C, int gm[N][N])
+{
+
+    std::vector<std::shared_ptr<bfs>> list_child;
+
+    for (int i{0}; i < N; i++)
+    {
+
+        for (int j{0}; j < N; j++)
+        {
+
+            if (std::abs(i - I_C) + std::abs(j - J_C) == 1)
+            {
+
+                int crowl_mat[N][N];
+                set_equal(crowl_mat, a.matrix);
+                std::swap(crowl_mat[i][j], crowl_mat[I_C][J_C]);
+                int id = to_id(crowl_mat);
+                bool check = false;
+                for (size_t i{0}; i < check_stop_b.size(); i++)
+                {
+                    if (id == check_stop_b[i])
+                    {
+
+                        check = true;
+                    }
+                }
+                if (check == false)
+                {
+
+                    // bfs *crow = new bfs;
+                    // crow = &a;
+                    check_stop_b.push_back(id);
+                    // bfs New{bfs(crowl_mat)};
+
+                    // list_child.push_back(New);
+                    // a.childs.push_back(New);
+                    std::shared_ptr<bfs> New(new bfs(&a, crowl_mat));
+                    // *New = wq;
+                    list_child.push_back(New);
+                    a.childs.push_back(New);
+                    // crow = nullptr;
+                }
+            }
+        }
+    }
+    //check_stop_bfs.clear();
+    return list_child;
+    // }
+}
+
+std::vector<std::shared_ptr<bfs>> create_bfs_child_f(bfs &a, int I_C, int J_C, int gm[N][N])
+{
+
+    std::vector<std::shared_ptr<bfs>> list_child;
+
+    for (int i{0}; i < N; i++)
+    {
+
+        for (int j{0}; j < N; j++)
+        {
+
+            if (std::abs(i - I_C) + std::abs(j - J_C) == 1)
+            {
+
+                int crowl_mat[N][N];
+                set_equal(crowl_mat, a.matrix);
+                std::swap(crowl_mat[i][j], crowl_mat[I_C][J_C]);
+                int id = to_id(crowl_mat);
+                bool check = false;
+                for (size_t i{0}; i < check_stop_f.size(); i++)
+                {
+                    if (id == check_stop_f[i])
+                    {
+
+                        check = true;
+                    }
+                }
+                if (check == false)
+                {
+
+                    // bfs *crow = new bfs;
+                    // crow = &a;
+                    check_stop_f.push_back(id);
+                    // bfs New{bfs(crowl_mat)};
+
+                    // list_child.push_back(New);
+                    // a.childs.push_back(New);
+                    std::shared_ptr<bfs> New(new bfs(&a, crowl_mat));
+                    // *New = wq;
+                    list_child.push_back(New);
+                    a.childs.push_back(New);
+                    // crow = nullptr;
+                }
+            }
+        }
+    }
+    //check_stop_bfs.clear();
+    return list_child;
+    // }
+}
