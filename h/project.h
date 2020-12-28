@@ -25,7 +25,7 @@ void disp_matrix(int matrix[N][N]) ;
 bool is_final(int m[N][N], int gm[N][N]);
 Struct find_zero_location(Node& a);
 void set_equal(int wanted_mat[N][N] , int from_mat[N][N]); 
-int solve_dfs(Node& a , int gm,int m[N][N] , int source) ; 
+int solve_dfs(Node& a , int gm,int m[N][N] , int source , int depth) ; 
 int solve_Node(Node& a, int gm[N][N], int m[N][N], int source , int depth);
 std::vector<std::shared_ptr<Node>> create_Node_child(Node& a, int I_C, int J_C, int gm[N][N]);
 bool isSolvable(int puzzle[3][3])  ; 

@@ -19,8 +19,9 @@ int solve_Node(Node &a, int gm[N][N], int m[N][N], int source, int depth)
     if (is_final(m, gm) == true)
     {
 
-        std::cout << "Here is the matrix" << std::endl;
-        disp_matrix(m);
+        std::cout << std::endl;
+        std::cout << "\033[36;1mHere is the answer :\033[0m" << std::endl;
+        std::cout << std::endl;
     }
     else
     {
@@ -33,7 +34,9 @@ int solve_Node(Node &a, int gm[N][N], int m[N][N], int source, int depth)
                 if (is_final(this_row_child[i]->matrix, gm) == true)
                 {
 
-                    std::cout << "Here is the matrix" << std::endl;
+                    std::cout << std::endl;
+                    std::cout << "\033[36;1mHere is the answer :\033[0m" << std::endl;
+                    std::cout << std::endl;
                     disp_matrix(this_row_child[i]->matrix);
 
                     std::vector<Node *> answer_list;
@@ -129,16 +132,17 @@ std::vector<std::shared_ptr<Node>> create_Node_child(Node &a, int I_C, int J_C, 
 }
 
 int k = 0;
-int depth = 0;
-int solve_dfs(Node &a, int gm, int m[N][N], int source)
+int layer = 0;
+int solve_dfs(Node &a, int gm, int m[N][N], int source, int depth)
 {
 
     std::vector<std::shared_ptr<Node>> this_row_child = create_dfs_child(a, find_zero_location(a).x, find_zero_location(a).y, gm);
     if (is_id_final(to_id(m), gm) == true)
     {
 
-        std::cout << "Here is the matrix" << std::endl;
-        disp_matrix(m);
+        std::cout << std::endl;
+        std::cout << "\033[36;1mHere is the answer :\033[0m" << std::endl;
+        std::cout << std::endl;
         return 0;
     }
 
@@ -155,9 +159,10 @@ int solve_dfs(Node &a, int gm, int m[N][N], int source)
             if (is_id_final(to_id(this_row_child[i]->matrix), gm) == true)
             {
                 k = 1;
-                std::cout << "Here is the answer :" << std::endl;
-                std::cout << depth << std::endl;
-                std::cout << check_stop_Node.size() << std::endl;
+                std::cout << std::endl;
+                std::cout << "\033[36;1mHere is the answer :\033[0m" << std::endl;
+                std::cout << std::endl;
+
                 std::vector<Node *> answer_list;
                 int h = 0;
                 Node *disp;
@@ -193,18 +198,18 @@ int solve_dfs(Node &a, int gm, int m[N][N], int source)
             else
             {
 
-                if (depth < 15)
+                if (layer < depth)
                 {
 
-                    depth++;
-                    solve_dfs(*this_row_child[i], gm, this_row_child[i]->matrix, source);
+                    layer++;
+                    solve_dfs(*this_row_child[i], gm, this_row_child[i]->matrix, source, depth);
                 }
             }
         }
 
         check_stop_Node.resize(check_stop_Node.size() - this_row_child.size());
 
-        depth--;
+        layer--;
     }
     return 0;
 }
@@ -248,10 +253,6 @@ std::vector<std::shared_ptr<Node>> create_dfs_child(Node &a, int I_C, int J_C, i
     return list_child;
 }
 
-
-
-
-
 int solve_dfs_without_limit(Node &a, int gm, int m[N][N], int source)
 {
 
@@ -259,7 +260,9 @@ int solve_dfs_without_limit(Node &a, int gm, int m[N][N], int source)
     if (is_id_final(to_id(m), gm) == true)
     {
 
-        std::cout << "This matrix is solvable! ";
+        std::cout << std::endl;
+        std::cout << "\033[36;1mHere is the answer :\033[0m" << std::endl;
+        std::cout << std::endl;
         return 1;
     }
 
@@ -271,22 +274,19 @@ int solve_dfs_without_limit(Node &a, int gm, int m[N][N], int source)
 
             if (k == 1)
             {
-                 std::cout << "This matrix is solvable! ";
-                 return 1;
+                std::cout << "This matrix is solvable! ";
+                return 1;
             }
             if (is_id_final(to_id(this_row_child[i]->matrix), gm) == true)
             {
-                
+
                 return 0;
             }
             else
             {
-                    solve_dfs_without_limit(*this_row_child[i], gm, this_row_child[i]->matrix, source);
-              
+                solve_dfs_without_limit(*this_row_child[i], gm, this_row_child[i]->matrix, source);
             }
         }
-
-
     }
     return 0;
 }
@@ -329,12 +329,6 @@ std::vector<std::shared_ptr<Node>> create_dfs_child_without_limit(Node &a, int I
 
     return list_child;
 }
-
-
-
-
-
-
 
 bool is_final(int m[N][N], int gm[N][N])
 {
@@ -475,17 +469,13 @@ bool isSolvable(int puzzle[3][3])
     return (invCount % 2 == 0);
 }
 
-auto to_matrix(int id)
-{
-    int matrix[N][N];
-    matrix[0][0] = id / 100000000 % 10;
-    std::cout << matrix[0][0];
-    return matrix;
-}
+
 
 int solve_biodirectal(Node &a, Node &b, int gm[N][N], int m[N][N], int source_f, int source_b)
 {
 
+    bool b_ans = false;
+    int bi_depth = 0;
     std::vector<std::shared_ptr<Node>> this_row_child_1 = create_Node_child_b(a, find_zero_location(a).x, find_zero_location(a).y, gm);
     std::vector<std::shared_ptr<Node>> this_row_child_next_1;
     std::vector<std::shared_ptr<Node>> this_row_child_2 = create_Node_child_f(b, find_zero_location(b).x, find_zero_location(b).y, m);
@@ -493,8 +483,9 @@ int solve_biodirectal(Node &a, Node &b, int gm[N][N], int m[N][N], int source_f,
     if (is_final(a.matrix, b.matrix) == true)
     {
 
-        std::cout << "Here is the matrix" << std::endl;
-        disp_matrix(m);
+        std::cout << std::endl;
+        std::cout << "\033[36;1mHere is the answer :\033[0m" << std::endl;
+        std::cout << std::endl;
         return 0;
     }
     else
@@ -502,6 +493,16 @@ int solve_biodirectal(Node &a, Node &b, int gm[N][N], int m[N][N], int source_f,
         while (true)
         {
 
+            if(bi_depth == 16)
+            {
+                if(b_ans == false)
+                {
+                        std::cout << std::endl;
+                        std::cout << "\033[30;1mIt is not solvable\033[0m" << std::endl;
+                        std::cout << std::endl;
+                        return 0 ;
+                }
+            }
             for (size_t i{0}; i < this_row_child_1.size(); i++)
             {
 
@@ -522,6 +523,16 @@ int solve_biodirectal(Node &a, Node &b, int gm[N][N], int m[N][N], int source_f,
                     this_row_child_next_2.push_back(this_row_child_next_crowler_2[i]);
                 }
             }
+            // if (this_row_child_next_1.size() == 0 || this_row_child_next_2.size() == 0)
+            // {
+            //     if (b_ans == false)
+            //     {
+            //         std::cout << std::endl;
+            //         std::cout << "\033[30;1mIt is not solvable\033[0m" << std::endl;
+            //         std::cout << std::endl;
+            //         return 0;
+            //     }
+            // }
 
             for (size_t i = 0; i < this_row_child_1.size(); i++)
             {
@@ -529,10 +540,16 @@ int solve_biodirectal(Node &a, Node &b, int gm[N][N], int m[N][N], int source_f,
                 {
                     if (is_id_final(to_id(this_row_child_2[j]->matrix), to_id(this_row_child_1[i]->matrix)) == true)
                     {
-                        std::cout << "They reach together at this matrix" << std::endl;
-                        std::cout << to_id(this_row_child_2[j]->matrix) << std::endl
-                                  << std::endl;
 
+                        b_ans = true;
+                        std::cout << std::endl;
+                        std::cout << "\033[35;1mThey reach together at this matrix :\033[0m" << std::endl;
+                        std::cout << std::endl;
+                        disp_matrix(this_row_child_2[j]->matrix);
+
+                        std::cout << std::endl;
+                        std::cout << "\033[36;1mHere is the answer :\033[0m" << std::endl;
+                        std::cout << std::endl;
                         std::vector<Node *> answer_list_1;
                         Node *disp_1;
 
@@ -589,6 +606,8 @@ int solve_biodirectal(Node &a, Node &b, int gm[N][N], int m[N][N], int source_f,
             this_row_child_1 = this_row_child_next_1;
             this_row_child_2.clear();
             this_row_child_2 = this_row_child_next_2;
+
+            bi_depth++;
         }
 
         return 0;

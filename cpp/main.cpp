@@ -35,7 +35,9 @@ int main()
     {
 
         int int_matrix;
-        std::cout << "Please enter your first puzzle" << std::endl;
+        std::cout << std::endl;
+        std::cout << "\033[33;1mPlease enter your first puzzle: \033[0m" << std::endl;
+        std::cout << std::endl;
         while (condition == 0)
         {
             std::cin >> int_matrix;
@@ -52,17 +54,26 @@ int main()
 
             if (isSolvable(matrix))
             {
-                std::cout << "Solvable";
+                std::cout << std::endl;
+                std::cout << "\033[92;1mSolvable \033[0m" << std::endl;
+                std::cout << std::endl;
                 condition = 1;
             }
             else
             {
-                std::cout << "Not Solvable" << std::endl;
-                std::cout << "Please enter your valid first puzzle" << std::endl;
+                std::cout << std::endl;
+                std::cout << "\033[91;1mNot solvable \033[0m" << std::endl;
+                std::cout << std::endl;
+
+                std::cout << std::endl;
+                std::cout << "\033[33;1mPlease enter your valid first puzzle: \033[0m" << std::endl;
+                std::cout << std::endl;
             }
         }
 
-        std::cout << "Please enter goal puzzle" << std::endl;
+        std::cout << std::endl;
+        std::cout << "\033[33;1mPlease enter goal puzzle: \033[0m" << std::endl;
+        std::cout << std::endl;
         int int_goal_matrix;
         std::cin >> int_goal_matrix;
 
@@ -80,7 +91,9 @@ int main()
     if (state == 2)
     {
         int int_matrix;
-        std::cout << "Please enter your first puzzle" << std::endl;
+        std::cout << std::endl;
+        std::cout << "\033[33;1mPlease enter your first puzzle: \033[0m" << std::endl;
+        std::cout << std::endl;
         while (condition == 0)
         {
             std::cin >> int_matrix;
@@ -97,13 +110,19 @@ int main()
 
             if (isSolvable(matrix))
             {
-                std::cout << "Solvable";
+                std::cout << std::endl;
+                std::cout << "\033[92;1mSolvable \033[0m" << std::endl;
+                std::cout << std::endl;
                 condition = 1;
             }
             else
             {
-                std::cout << "Not Solvable" << std::endl;
-                std::cout << "Please enter your valid first puzzle" << std::endl;
+                std::cout << std::endl;
+                std::cout << "\033[91;1mNot solvable \033[0m" << std::endl;
+                std::cout << std::endl;
+                std::cout << std::endl;
+                std::cout << "\033[33;1mPlease enter your valid first puzzle: \033[0m" << std::endl;
+                std::cout << std::endl;
             }
         }
 
@@ -120,40 +139,44 @@ int main()
     if (state == 3)
     {
         srand(time(0));
-            int r;
-            std::vector<int> rand_list;
+        int r;
+        std::vector<int> rand_list;
 
-            bool rand_check = 0;
-            for (size_t i{0}; i < N; i++)
+        bool rand_check = 0;
+        for (size_t i{0}; i < N; i++)
+        {
+            for (size_t j{0}; j < N; j++)
             {
-                for (size_t j{0}; j < N; j++)
+
+                r = (rand() % 9);
+                while (rand_check == 0)
                 {
-
-                    r = (rand() % 9);
-                    while (rand_check == 0)
+                    if (std::find(rand_list.begin(), rand_list.end(), r) == rand_list.end())
                     {
-                        if (std::find(rand_list.begin(), rand_list.end(), r) == rand_list.end())
-                        {
 
-                            matrix[i][j] = r;
-                            rand_list.push_back(r);
-                            rand_check = 1;
-                        }
-                        else
-                        {
-                            r = (rand() % 9);
-                            std::cout << r << std::endl;
-                        }
+                        matrix[i][j] = r;
+                        rand_list.push_back(r);
+                        rand_check = 1;
                     }
-
-                    rand_check = 0;
+                    else
+                    {
+                        r = (rand() % 9);
+                        std::cout << r << std::endl;
+                    }
                 }
-            }
-            
-        std::cout << "This is your primary matrix" << std::endl << std::endl ;
-        disp_matrix(matrix) ; 
 
-        std::cout << "Please enter goal puzzle" << std::endl;
+                rand_check = 0;
+            }
+        }
+
+        std::cout << std::endl;
+        std::cout << "\033[36;1mThis is your primary matrix: \033[0m" << std::endl;
+        std::cout << std::endl;
+        disp_matrix(matrix);
+
+        std::cout << std::endl;
+        std::cout << "\033[33;1mPlease enter goal puzzle: \033[0m" << std::endl;
+        std::cout << std::endl;
         int int_goal_matrix;
         std::cin >> int_goal_matrix;
 
@@ -167,18 +190,16 @@ int main()
         goal_matrix[2][1] = int_goal_matrix / 10 % 10;
         goal_matrix[2][2] = int_goal_matrix % 10;
         Node c{matrix};
-        int yn = solve_dfs_without_limit(c, to_id(goal_matrix), matrix , to_id(matrix)) ; 
-        if(yn == 1 )
+        int yn = solve_dfs_without_limit(c, to_id(goal_matrix), matrix, to_id(matrix));
+        if (yn == 1)
         {
-            std::cout << "This puzzle is not solvable" << std::endl ; 
+            std::cout << "This puzzle is not solvable" << std::endl;
         }
         else
         {
 
-            std::cout << "This puzzle is  solvable"  << std::endl ; 
+            std::cout << "This puzzle is  solvable" << std::endl;
         }
-        
-
     }
     if (state == 4)
     {
@@ -215,15 +236,25 @@ int main()
                     rand_check = 0;
                 }
             }
+            std::cout << std::endl;
+            std::cout << "\033[36;1mThis is your primary matrix: \033[0m" << std::endl;
+            std::cout << std::endl;
             disp_matrix(matrix);
             if (isSolvable(matrix))
             {
-                std::cout << "Solvable" << std::endl;
+                std::cout << std::endl;
+                std::cout << "\033[92;1mSolvable \033[0m" << std::endl;
+                std::cout << std::endl;
                 condition = 1;
             }
             else
             {
-                std::cout << "Not Solvable" << std::endl;
+                std::cout << std::endl;
+                std::cout << "\033[91;1mNot solvable \033[0m" << std::endl;
+                std::cout << std::endl;
+                std::cout << std::endl;
+                std::cout << "\033[33;1mPlease enter your valid first puzzle: \033[0m" << std::endl;
+                std::cout << std::endl;
             }
         }
         goal_matrix[0][0] = 1;
@@ -240,10 +271,13 @@ int main()
     Node a{matrix};
     Node b{goal_matrix};
     check_stop_Node.push_back(to_id(matrix));
+    std::cout << "\033[1;30;106m";
     std::cout << "Which way do you prefer?" << std::endl;
     std::cout << "1-BFS" << std::endl;
     std::cout << "2-DFS" << std::endl;
-    std::cout << "3-BIO" << std::endl;
+    std::cout << "3-BIO"
+              << " \033[0m " << std::endl;
+
     std::cin >> ans;
 
     if (ans == 1)
@@ -254,9 +288,11 @@ int main()
         solve_Node(a, goal_matrix, matrix, to_id(matrix), depth);
     }
     if (ans == 2)
-
     {
-        solve_dfs(a, to_id(goal_matrix), matrix, to_id(matrix));
+        int depth;
+        std::cout << "Please enter depth of the algorithm" << std::endl;
+        std::cin >> depth;
+        solve_dfs(a, to_id(goal_matrix), matrix, to_id(matrix), depth);
     }
     if (ans == 3)
 
