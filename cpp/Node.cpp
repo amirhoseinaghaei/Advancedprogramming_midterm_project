@@ -1,5 +1,4 @@
 #include "Node.h"
-
 #include <iostream>
 #define N 3
 
@@ -43,5 +42,11 @@ Node::Node(const Node & cp)
 }
 Node::Node()
 {
-    // std::cout << "Default constructor" << std::endl;
+    
+}
+
+Node::~Node()
+{
+   parent = nullptr ;
+    delete[] parent ; 
 }

@@ -1,7 +1,6 @@
 #if !defined(Node_H)
 #define Node_H
 
-#define N 3
 #include <iostream>
 #include <vector>
 #include <memory>
@@ -9,11 +8,12 @@ class Node
 {
 public:
     Node();
-    Node(Node *pr, int mat[N][N]);
-    Node(int mat[N][N]);
+    ~Node() ; 
+    Node(Node *pr, int mat[3][3]);
+    Node(int mat[3][3]);
     Node(const Node &cp);
     Node * parent ;
-    int matrix[N][N];
+    int matrix[3][3];
     std::vector< std::shared_ptr<Node>> childs;
 };
 
